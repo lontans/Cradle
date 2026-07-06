@@ -1,0 +1,20 @@
+# Altium
+*.PcbDoc.Bak*
+*.SchDoc.Bak*
+*.OutJob.Bak*
+*~
+History/
+Project Logs*/
+Project Outputs*/
+*.PriorDsn
+*.DdbLog
+*.Lck
+
+# Claude working files (context brief, not part of the hardware project)
+Claude/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
