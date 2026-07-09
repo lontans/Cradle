@@ -18,3 +18,7 @@ Claude/
 Thumbs.db
 desktop.ini
 .vscode/
+
+# Python bytecode cache (cradle_sidecar/tools/ scripts)
+__pycache__/
+*.pyc
