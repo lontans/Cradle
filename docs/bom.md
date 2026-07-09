@@ -30,10 +30,11 @@ Last updated: 2026-07-08
 | BAT | JST-PH 2-pin | LiPo battery connector | C131337 | 1 |
 | SPK | JST-PH 2-pin | Speaker output connector | C131337 | 1 |
 | NTC1 | 103AT-series | 10kΩ NTC thermistor, B=3435K | (to source) | 1 |
+| L10, L11 | SLS3D16S2R2NTT | 2.2uH, 1A, 60mOhm DCR, 4x4mm shielded — AP6275S `ASR_VLX`/`ABUCK_1P12` and `CSR_VLX`/`CBUCK_0P9` internal buck loops | (confirmed) | 2 |
+| C89, C90 | CL10A475KP8NNNC | 4.7uF X5R 0603 — AP6275S buck loop output caps (`ABUCK_1P12`, `CBUCK_0P9` to GND) | (confirmed) | 2 |
 
 ## Still needed (not yet sourced)
 
-- L_WL1, L_WL2: 2.2-4.7uH inductors (**exact value not yet picked** — both evidence-backed from independent production schematics, see AP6275S.md open questions), 3030/1210 package, >=1A rated, DCR <=80mOhm — for AP6275S `CBUCK_0P9`/`CSR_VLX` and `ASR_VLX`/`ABUCK_1P12` internal buck loops (see decisions-log.md, 2026-07-07 entry)
 - R_SDIO x5: 30kOhm pull-ups (R0402) on SDIO CMD/D0/D1/D2/D3, returned to 1.8V VDDIO rail, per AMPAK EVB manual (see decisions-log.md, 2026-07-07 entry)
 - Crystal oscillator (24MHz for RK3576)
 - Status LEDs (0402) + current limiting resistors

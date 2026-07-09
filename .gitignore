@@ -22,3 +22,9 @@ desktop.ini
 # Python bytecode cache (cradle_sidecar/tools/ scripts)
 __pycache__/
 *.pyc
+
+# Bulky vendor datasheet PDFs -- kept locally for the tooling to read, not
+# worth tracking in git. The useful, git-tracked artifacts are the generated
+# .index/.tables/.outline/.quickstart .md files sitting next to them.
+cradle_sidecar/data/datasheets/*.pdf
+cradle_sidecar/data/datasheets/*.zip

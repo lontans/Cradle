@@ -2,6 +2,12 @@
 
 Running log of what changed and when. Short dated bullets — for the reasoning behind a change, link to the relevant doc ([docs/architecture.md](docs/architecture.md), [docs/decisions-log.md](docs/decisions-log.md), [docs/bom.md](docs/bom.md), [docs/schematic-status.md](docs/schematic-status.md), [cradle_sidecar/co-design-workflow.md](cradle_sidecar/co-design-workflow.md), [firmware/LOG.md](firmware/LOG.md)) rather than restating it here.
 
+## 2026-07-09
+- Sheet 5 (Wireless): CBUCK/ABUCK inductor loops finalized — 2.2uH/1A/60mOhm (SLS3D16S2R2NTT, `L10`/`L11`), 4.7uF output caps (`C89`/`C90`) — see decisions-log.md. Wireless-sheet hierarchical ports to top-level identified (19 nets, direction confirmed). AP6275S known-gaps note added: datasheet's whole-module `VBAT` peak current (1200mA) found via raw text read, missed by table extraction.
+- Sheet 6 (Storage): started. TF-01A (microSD, `Card1`) SD-mode pinout + wiring decided (CMD/DAT0-3 + mechanical card-detect pull-ups to `STORAGE_3V3`) — see `cradle_sidecar/data/components/TF-01A.md`. eMMC (`U3`) confirmed to live on this sheet (not Memory, correcting a stale `docs/schematic-status.md` note) — datasheet indexed but ball map is a figure, not yet read.
+- New datasheets indexed: TF-01A (scanned image, no extractable text — flagged), EMMC04G-M627-Y02U (44 pages, 17 tables ported, no auto-detected pin table).
+- `standard-parts.md`: added `L9`/`C88` (staged instances of the finalized buck-loop inductor/cap).
+
 ## 2026-07-08
 - **Repo restructure:** live co-design layer moved to `cradle_sidecar/` (`tools/`, `data/components/`, `data/altium/`, `data/datasheets/`, `data/net-registry.md`, workflow docs). `docs/` now holds only published narrative (architecture, decisions-log, bom, schematic-status). `paths.py` centralizes all tool paths. Verified: tooling output unchanged post-move. Localhost UI (`cradle_sidecar/app/`) explicitly descoped — see `cradle_sidecar/co-design-workflow.md`.
 - Co-design tooling added/enhanced: `project_refresh.py`, `registry_check.py`, `card_lint.py`, net-registry seeded (19 Wireless rows).
