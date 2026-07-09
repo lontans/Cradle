@@ -2,14 +2,14 @@
 
 Living document — edit in place as parts are confirmed or swapped. Log the *reason* for any swap in [decisions-log.md](decisions-log.md), not here.
 
-Last updated: 2026-07-05
+Last updated: 2026-07-08
 
 ## Confirmed / sourced
 
 | Designator | Part Number | Description | LCSC/JLCPCB # | Qty |
 |---|---|---|---|---|
 | U1 | RK3576 | Main SoC, FCCSP-698L | C42388007 | 1 |
-| U2 | AP6275S | WiFi 6 + BT 5.0 module, SDIO | C2918717 | 1 |
+| U2 | AP6275S | WiFi 6 + BT 5.3 module, SDIO | C2918717 | 1 |
 | U3 | HDMI-519S | Mini-HDMI Type C connector | C183605 | 1 |
 | U4 | EMMC04G-M627-Y02U | 4GB eMMC 5.1 | (confirmed) | 1 |
 | U5 | K4UBE3D4AB-MGCL | 4GB LPDDR4X, x32, 200-ball FBGA | C5827966 | 1 |
@@ -33,6 +33,8 @@ Last updated: 2026-07-05
 
 ## Still needed (not yet sourced)
 
+- L_WL1, L_WL2: 2.2-4.7uH inductors (**exact value not yet picked** — both evidence-backed from independent production schematics, see AP6275S.md open questions), 3030/1210 package, >=1A rated, DCR <=80mOhm — for AP6275S `CBUCK_0P9`/`CSR_VLX` and `ASR_VLX`/`ABUCK_1P12` internal buck loops (see decisions-log.md, 2026-07-07 entry)
+- R_SDIO x5: 30kOhm pull-ups (R0402) on SDIO CMD/D0/D1/D2/D3, returned to 1.8V VDDIO rail, per AMPAK EVB manual (see decisions-log.md, 2026-07-07 entry)
 - Crystal oscillator (24MHz for RK3576)
 - Status LEDs (0402) + current limiting resistors
 - Reset button (tactile SMD)

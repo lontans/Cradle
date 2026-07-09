@@ -54,6 +54,9 @@ The items below are locked design decisions. Treat this section as a spec, not a
   - No integrated antenna — `WL_ANT0`/`WL_ANT1` are bare RF I/O pins that must be routed to external antennas. 2T2R WiFi needs two RF paths; Bluetooth shares the `ANT1` path internally via the module's diplexer, no separate BT antenna needed
   - 2.4GHz-only for v1 (5GHz band dropped) — simplifies antenna sourcing/tuning and sidesteps the indoor-use-only restriction on 5GHz's lower UNII-1 sub-bands (W52/W53), which is awkward for a portable/robotics device. Bluetooth and driver support unaffected
   - Antenna: Johanson 2450AT18A100E (C89334), 2.4-2.5GHz single-band ceramic chip antenna, ~74-76% efficiency, x2 (one per RF path, 2T2R) — each needs a "tee" (series-shunt-series) matching network and a PCB keepout zone with ground vias per the antenna's layout guide; reference matching values are a starting point and may need tuning
+  - Internal buck regulator pins need external components not documented in AMPAK's datasheet: `CBUCK_0P9`/`CSR_VLX` and `ASR_VLX`/`ABUCK_1P12` each need a 4.7uH inductor (3030 package, >=1A, DCR <=80mOhm) bridging the VLX switch node to the buck output pin, plus a 4.7uF X5R cap from the buck output to GND. Resolved via a real reference schematic (Geniatech CBD-3588) — see [decisions-log.md](decisions-log.md)
+  - SDIO data/cmd lines get 30kOhm external pull-ups to the 1.8V VDDIO rail (CMD, D0, D1, D2, D3 — 5 total; CLK is actively driven, no pull-up) per AMPAK's own EVB manual hardware setup table for VIO=1.8V/SDIO3.0. `SDIO_VSEL`/`PCIE_WAKEn` (pin 24) is a no-connect for AP6275S (AMPAK's pin table lists it NC)
+  - `WL_REG_ON`, `BT_REG_ON`, `WL_HOST_WAKE`, `BT_HOST_WAKE`, `BT_WAKE` are all direct GPIO-to-GPIO with the RK3576, no pull resistors
 
 ## Interfaces
 - Dual USB-C ports (both TYPE-C 16P QTWT, C5187472):

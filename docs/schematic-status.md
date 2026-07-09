@@ -10,7 +10,7 @@ Net naming convention: match Radxa naming where possible for cross-reference dur
 | 2 | Power — PMIC | **In progress** | RK806S-5, all 10 buck regulators (inductors + decoupling) done. Remaining: LDO outputs, PWRON, RESET_OUT, I2C interface, enable/fault pins |
 | 3 | Compute — SoC | Not started | RK3576 pin assignments, power pins to named nets, clock, reset, boot mode resistors, JTAG pads. **Do this sheet last** — by then every net it connects to already has a name |
 | 4 | Compute — Memory | Not started | LPDDR4X (K4UBE3D4AB-MGCL) and eMMC (EMMC04G-M627-Y02U), all decoupling |
-| 5 | Wireless | **In progress** | AP6275S: SDIO (4-bit) to SoC, UART to SoC (BT HCI; PCM omitted), 2x Johanson 2450AT18A100E 2.4GHz chip antennas + matching networks, 37.4MHz crystal + load caps, 32.768kHz SiTime MEMS oscillator on LPO. 2.4GHz-only (5GHz dropped). See [decisions-log.md](decisions-log.md) |
+| 5 | Wireless | **In progress** | AP6275S: SDIO (4-bit) to SoC, UART to SoC (BT HCI; PCM omitted), 2x Johanson 2450AT18A100E 2.4GHz chip antennas + matching networks, 37.4MHz crystal + load caps, 32.768kHz SiTime MEMS oscillator on LPO. 2.4GHz-only (5GHz dropped). Full pin-out now resolved including CBUCK/ABUCK inductor loops, SDIO no-pull-up wiring, and REG_ON/HOST_WAKE GPIO connections — ready to lay out in Altium. See [decisions-log.md](decisions-log.md) |
 | 6 | Storage and SD | Not started | MicroSD slot (TF-01A), card detect, decoupling |
 | 7 | Interfaces — USB and HDMI | Not started | Both USB-C connectors, AP2141 load switch, CC resistors, ESD arrays, mini-HDMI, TMDS termination |
 | 8 | Interfaces — FPC and Expansion | Not started | 30-pin CSI FPC, 20-pin expansion FPC, ESD protection, pull-ups, pin assignment documentation |
