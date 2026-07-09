@@ -4,6 +4,8 @@
 
 **Wiring targets:** U1/RK3576
 
+**Card origin:** Datasheet-derived
+
 **Vendor:** (LCSC/generic, C91145) **Datasheet:** `cradle_sidecar/data/datasheets/TF-01A Datasheet.pdf` — **1-page scanned image, no extractable text layer** `[VERIFIED — pulled raw PDF text via PyMuPDF 2026-07-09, returned empty string]`. `datasheet_index.py`/`datasheet_quickstart.py` both found zero structure for this reason — not a tool bug, the source PDF has nothing machine-readable in it. Pinout below is `[UNVERIFIED — user's visual read of the datasheet 2026-07-09]`, not independently confirmed against source text.
 
 ## High-level summary

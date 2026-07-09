@@ -2,11 +2,15 @@
 """
 Cradle sidecar v0 — localhost co-design companion.
 
-Read-only views of cradle_sidecar/data/ plus one write-capable action:
-POST /api/refresh runs project_refresh.py (same as the agent workflow).
+Mostly read-only views of cradle_sidecar/data/, plus a few write-capable
+actions: POST /api/refresh runs project_refresh.py (same as the agent
+workflow), and POST /api/card/<name> creates or updates a component card
+(the manual-card-authoring path — for parts whose datasheet is missing,
+scrambled, or otherwise unusable for automated extraction). POST /api/lint
+runs the same structural check as tools/card_lint.py against draft text.
 
-Does NOT edit markdown, run datasheet_index, or invoke AI. Those stay in
-the agent/CLI path. Open http://127.0.0.1:8765/ while working in Altium.
+Does NOT run datasheet_index or invoke AI. Those stay in the agent/CLI
+path. Open http://127.0.0.1:8765/ while working in Altium.
 
 Usage (from repo root):
     python cradle_sidecar/app/server.py
@@ -19,7 +23,7 @@ import subprocess
 import sys
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import parse_qs, unquote, urlparse
 
 APP_DIR = Path(__file__).resolve().parent
 REPO_ROOT = APP_DIR.parent.parent
@@ -90,11 +94,31 @@ class SidecarHandler(BaseHTTPRequestHandler):
             content = data_api.read_card(name)
             if content is None:
                 return json_response(self, 404, {"error": "card not found"})
-            return json_response(self, 200, {"file": name, "markdown": content})
+            return json_response(self, 200, {
+                "file": name,
+                "markdown": content,
+                "datasheet": data_api.extract_datasheet_name(content),
+            })
         if path == "/api/registry":
             return json_response(self, 200, data_api.registry_with_checks())
         if path == "/api/freshness":
             return json_response(self, 200, {"freshness": data_api.freshness()})
+        if path == "/api/cards":
+            return json_response(self, 200, {"cards": data_api.list_cards()})
+        if path == "/api/card_template":
+            return json_response(self, 200, {"markdown": data_api.read_template()})
+        if path == "/api/home":
+            return json_response(self, 200, data_api.homepage_stats())
+        if path.startswith("/datasheets/"):
+            name = path[len("/datasheets/") :]
+            asset = data_api.read_datasheet(unquote(name))
+            if asset is None:
+                return self.send_error(404)
+            self.send_response(200)
+            self.send_header("Content-Type", asset["mime"])
+            self.send_header("Content-Length", str(len(asset["bytes"])))
+            self.end_headers()
+            return self.wfile.write(asset["bytes"])
 
         self.send_error(404)
 
@@ -111,6 +135,28 @@ class SidecarHandler(BaseHTTPRequestHandler):
             result = run_project_refresh()
             result["freshness"] = data_api.freshness()
             return json_response(self, 200, result)
+
+        if parsed.path.startswith("/api/card/") and parsed.path.endswith("/note"):
+            name = parsed.path[len("/api/card/") : -len("/note")]
+            result = data_api.add_card_note(
+                name, body.get("text", ""), body.get("tag", ""), body.get("source"), body.get("page"),
+            )
+            status = 200 if result.get("ok") else (404 if result.get("error") == "card does not exist" else 400)
+            return json_response(self, status, result)
+
+        if parsed.path.startswith("/api/card/"):
+            name = parsed.path.split("/api/card/", 1)[1]
+            markdown = body.get("markdown", "")
+            overwrite = bool(body.get("overwrite", False))
+            if not name or ".." in name or "/" in name:
+                return json_response(self, 400, {"error": "invalid card name"})
+            result = data_api.write_card(name, markdown, overwrite)
+            status = 200 if result.get("ok") else (409 if result.get("error") == "card already exists" else 400)
+            return json_response(self, status, result)
+
+        if parsed.path == "/api/lint":
+            findings = data_api.lint_card_text(body.get("markdown", ""))
+            return json_response(self, 200, {"findings": findings})
 
         if parsed.path == "/api/open":
             rel = body.get("path", "")

@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cradle Sidecar</title>
+  <title>Sidecar</title>
   <link rel="stylesheet" href="/static/style.css">
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
   <header class="topbar">
-    <div class="brand">
-      <h1>Cradle Sidecar</h1>
+    <button type="button" id="brand-home" class="brand brand-link" title="Home">
+      <h1>Sidecar</h1>
       <p class="tagline">Co-design companion — verbatim markdown, refresh on demand</p>
-    </div>
+    </button>
     <div class="topbar-actions">
       <span id="freshness" class="freshness">Loading…</span>
       <button id="refresh-btn" type="button" class="btn primary">Run project refresh</button>
@@ -25,6 +25,7 @@
       <ul id="sheet-list"></ul>
       <h2 class="nav-section">Cross-sheet</h2>
       <button type="button" id="nav-registry" class="nav-link">Net registry</button>
+      <button type="button" id="nav-cards" class="nav-link">Component cards</button>
     </nav>
 
     <aside class="parts-panel" id="parts-panel" aria-label="Parts on sheet">
@@ -35,7 +36,7 @@
     </aside>
 
     <main class="main" id="panel-main">
-      <p class="placeholder">Select a sheet for descriptor, cross-sheet contracts, and part detail.</p>
+      <p class="placeholder">Loading…</p>
     </main>
   </div>
 
@@ -46,6 +47,37 @@
       <pre id="refresh-output"></pre>
       <button type="submit" class="btn">Close</button>
     </form>
+  </dialog>
+
+  <dialog id="card-editor-dialog" class="editor-dialog">
+    <div class="editor-head">
+      <h3 id="editor-title">New component card</h3>
+      <label class="editor-filename-label">
+        File name
+        <input type="text" id="editor-filename" placeholder="PARTNUMBER.md" spellcheck="false">
+      </label>
+    </div>
+    <p class="dialog-note">
+      Reviewing an agent-drafted card: if a datasheet exists, prefer asking your agent to read it directly
+      (vision, not the mechanical extractor) plus a web search, and write a first-pass draft with
+      <code>[VERIFIED]</code>/<code>[UNVERIFIED]</code> tags — leaving genuine gaps as <code>&lt;placeholder&gt;</code>
+      text — before opening it here. This editor is for review: jump through the remaining blanks, fill each with
+      your own knowledge tagged <code>[MANUAL — user, date]</code>, and set <code>**Card origin:**</code> to
+      <code>Mixed</code>. Only start from a fully blank template when there's no datasheet to draft from at all.
+    </p>
+    <div class="editor-toolbar">
+      <button type="button" id="jump-blank-btn" class="btn small">Next blank</button>
+      <button type="button" id="insert-manual-tag" class="btn small">Insert [MANUAL — user, date] tag</button>
+      <button type="button" id="editor-lint-btn" class="btn small">Lint</button>
+      <span id="editor-lint-summary" class="lint-summary"></span>
+    </div>
+    <textarea id="editor-textarea" class="editor-textarea" spellcheck="false"></textarea>
+    <ul id="editor-lint-results" class="lint-results"></ul>
+    <div class="editor-actions">
+      <span id="editor-error" class="editor-error"></span>
+      <button type="button" id="editor-cancel-btn" class="btn">Cancel</button>
+      <button type="button" id="editor-save-btn" class="btn primary">Save card</button>
+    </div>
   </dialog>
 
   <script src="/static/app.js"></script>

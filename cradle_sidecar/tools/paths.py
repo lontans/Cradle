@@ -34,7 +34,8 @@ DATASHEETS_DIR = "cradle_sidecar/data/datasheets"
 WORKFLOW_CHEATSHEET_PATH = "cradle_sidecar/workflow-cheatsheet.md"
 CODESIGN_WORKFLOW_PATH = "cradle_sidecar/co-design-workflow.md"
 
-# --- Sidecar web UI (read-only + project_refresh on user request) ---
+# --- Sidecar web UI (mostly read-only; writes component cards on explicit
+#     user save, and runs project_refresh, both on user request) ---
 APP_DIR = "cradle_sidecar/app"
 SIDECAR_DEFAULT_PORT = 8765
 

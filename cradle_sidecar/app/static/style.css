@@ -1,15 +1,21 @@
 :root {
-  --bg: #0f1218;
-  --surface: #171b24;
-  --surface2: #1e2430;
-  --border: #2a3344;
-  --text: #e8ecf4;
-  --muted: #8b97ab;
-  --accent: #5b9fd4;
-  --accent-dim: #3d6f99;
-  --ok: #6bcf8e;
-  --warn: #e8c468;
-  --card: #7eb8ff;
+  /* Palette: gold #D9B036, dark teal #123B40, sage #68A69B, peach #F2C8A2, coral #F27244.
+     --bg/--surface/--surface2/--border/--text are neutrals derived from the
+     dark teal + a warm near-white; every other token is one of the five
+     palette colors used directly, not a reinterpretation of it. */
+  --bg: #0a2226;
+  --surface: #123b40;
+  --surface2: #1b4b52;
+  --border: #2c5c62;
+  --text: #edf2f1;
+  --muted: #7fa39d;
+  --accent: #d9b036;
+  --accent-dim: #8c6e22;
+  --ok: #68a69b;
+  --warn: #f2c8a2;
+  --card: #d9b036;
+  --danger: #f27244;
+  --manual: #d9b036;
   --font: "Segoe UI", system-ui, -apple-system, sans-serif;
   --mono: "Cascadia Code", "Consolas", monospace;
 }
@@ -40,6 +46,21 @@ body {
   font-weight: 600;
   letter-spacing: 0.02em;
 }
+
+.brand-link {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  display: block;
+}
+
+.brand-link:hover h1 { color: var(--accent); }
+.brand-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .tagline {
   margin: 0.2rem 0 0;
@@ -72,7 +93,7 @@ body {
   border-radius: 4px;
 }
 
-.btn:hover { border-color: var(--accent); }
+.btn:hover { background: var(--border); border-color: var(--accent); }
 
 .btn.primary {
   background: var(--accent-dim);
@@ -138,8 +159,14 @@ body {
 .sheet-btn:hover, .nav-link:hover { background: var(--surface2); }
 
 .sheet-btn.active, .nav-link.active {
-  background: var(--accent-dim);
-  color: #fff;
+  /* Darker teal than the sidebar's own --surface backdrop (so it doesn't
+     blend in) plus a left accent stripe -- background contrast alone was
+     too subtle once the text went orange, this makes "active" unambiguous
+     while keeping the orange text readable (contrast ~5.7:1 on --bg). */
+  background: var(--bg);
+  color: var(--danger);
+  border-left: 3px solid var(--danger);
+  padding-left: calc(0.5rem - 3px);
 }
 
 .sheet-btn .num {
@@ -155,6 +182,12 @@ body {
   margin-top: 0.15rem;
   padding-left: 1.5rem;
 }
+
+/* Teal-highlighted (active/selected) rows always carry the same orange
+   text as citations elsewhere -- .num/.status have their own explicit
+   muted color otherwise, so the active state needs to say so explicitly
+   too, not just rely on inheriting .sheet-btn.active's color. */
+.sheet-btn.active .num, .sheet-btn.active .status { color: var(--danger); }
 
 .parts-panel {
   border-right: 1px solid var(--border);
@@ -182,7 +215,7 @@ body {
 }
 
 .part-list li:hover { background: var(--surface2); }
-.part-list li.selected { background: var(--accent-dim); }
+.part-list li.selected { background: var(--surface); color: var(--danger); }
 .part-list li.has-card .ref { color: var(--card); font-weight: 600; }
 .part-list li.ambiguous .name { color: var(--muted); }
 
@@ -219,15 +252,67 @@ body {
   color: var(--muted);
 }
 
-.badge.card { background: #1a3a52; color: var(--card); }
+.badge.card { background: #3d3016; color: var(--card); }
 
 .source-tag {
   font-size: 0.68rem;
-  color: var(--muted);
+  color: var(--danger);
   font-family: var(--mono);
 }
 
 .block { margin-bottom: 1.5rem; }
+
+.block.vision {
+  border-left: 3px solid var(--accent);
+  padding-left: 0.9rem;
+}
+
+.block.home-hero {
+  border-left: 3px solid var(--accent);
+  padding-left: 0.9rem;
+}
+
+.block.home-hero .placeholder { max-width: 46rem; }
+
+/* --- Home page stat tiles --- */
+
+.stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0.75rem 0 1.25rem;
+}
+
+.stat-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  min-width: 7rem;
+}
+
+.stat-value {
+  font-family: var(--mono);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--text);
+}
+
+.stat-value.usage-value { color: var(--accent); }
+.stat-value.status-decided { color: var(--ok); }
+.stat-value.status-open { color: var(--warn); }
+.stat-value.status-not-addressed { color: var(--muted); }
+
+.stat-label {
+  font-size: 0.68rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
 
 .section-title {
   margin: 0 0 0.75rem;
@@ -308,8 +393,8 @@ body {
   white-space: nowrap;
   width: 3rem;
 }
-.contract-table .missing td { color: #f08080; }
-.contract-table .single td:last-child { color: var(--warn); }
+.contract-table .missing td { color: var(--danger); }
+.contract-table .single td:last-child { color: var(--accent); }
 
 .kv-table {
   width: 100%;
@@ -356,8 +441,8 @@ body {
 #refresh-dialog::backdrop { background: rgba(0,0,0,0.6); }
 
 #refresh-output {
-  background: #0a0c10;
-  color: #c8d4e8;
+  background: var(--bg);
+  color: var(--text);
   font-family: var(--mono);
   font-size: 0.72rem;
   padding: 0.75rem;
@@ -371,10 +456,31 @@ body {
   color: var(--muted);
 }
 
+/* Unstyled otherwise these fall back to the browser default link color
+   (blue/purple), which clashes with the palette and gives no visual cue
+   that a click opens a file locally rather than navigating away. Gold
+   keeps it distinct from the orange citations/code and the sage/peach
+   status colors. */
+.markdown a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: text-decoration-color 0.15s;
+}
+.markdown a:hover { text-decoration-color: currentColor; }
+.markdown a:visited { color: var(--accent); }
+
 code {
+  /* Darkening the orange text made contrast worse, not better --
+     --surface2 is dark enough that a darker foreground just converges
+     toward it. Darkening the chip's own background instead (same fix
+     as the sheet-nav active state) gets orange from 3.34:1 to 4.21:1
+     while --surface is still visibly lighter than the page's own --bg,
+     so the chip doesn't flatten into its surroundings. */
   font-family: var(--mono);
   font-size: 0.85em;
-  background: var(--surface2);
+  background: var(--surface);
+  color: var(--danger);
   padding: 0.1rem 0.3rem;
   border-radius: 3px;
 }
@@ -385,4 +491,374 @@ code {
     grid-template-rows: auto auto 1fr;
   }
   .parts-panel { max-height: 12rem; }
+}
+
+/* --- Status column coloring (vendor pin tables) --- */
+
+.markdown table td.status-decided { color: var(--ok); }
+.markdown table td.status-open { color: var(--warn); }
+.markdown table td.status-not-addressed { color: var(--muted); font-style: italic; }
+
+/* --- Provenance tag highlighting --- */
+
+.prov-tag {
+  font-family: var(--mono);
+  font-size: 0.85em;
+  padding: 0.03rem 0.25rem;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.prov-verified { background: #1c3632; color: var(--ok); }
+.prov-unverified { background: #3d3226; color: var(--warn); }
+.prov-manual { background: #3d3016; color: var(--manual); }
+
+/* --- Card origin badges --- */
+
+.badge.origin-datasheet { background: #1c3632; color: var(--ok); }
+.badge.origin-manual { background: #3d3016; color: var(--manual); }
+.badge.origin-mixed { background: #3d2016; color: var(--danger); }
+.badge.origin-unknown { background: var(--surface2); color: var(--muted); }
+.badge.badge-warn { background: #3d2016; color: var(--danger); }
+
+/* --- Component cards nav view --- */
+
+.cards-toolbar {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.cards-toolbar-hint {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin: -0.5rem 0 1rem;
+}
+
+.cards-search {
+  flex: 1;
+  font: inherit;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+}
+
+.cards-list {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.cards-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.55rem 0.75rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+}
+
+.cards-list-item:last-child { border-bottom: none; }
+.cards-list-item:hover { background: var(--surface2); }
+
+.cards-list-main {
+  display: flex;
+  gap: 0.6rem;
+  align-items: baseline;
+  min-width: 0;
+}
+
+.cards-list-main .ref {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--card);
+  flex-shrink: 0;
+}
+
+.cards-list-main .name {
+  font-size: 0.85rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cards-list-meta {
+  display: flex;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+/* --- Card editor dialog --- */
+
+.editor-dialog {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1rem;
+  max-width: 60rem;
+  width: 92vw;
+}
+
+.editor-dialog::backdrop { background: rgba(0,0,0,0.6); }
+
+.editor-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.editor-head h3 { margin: 0; }
+
+.editor-filename-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.editor-filename-label input {
+  font: inherit;
+  font-family: var(--mono);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  width: 16rem;
+}
+
+.editor-filename-label input:disabled { color: var(--muted); }
+
+.editor-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.75rem 0 0.5rem;
+}
+
+.editor-textarea {
+  width: 100%;
+  height: 45vh;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.6rem;
+  resize: vertical;
+}
+
+.lint-summary {
+  font-size: 0.78rem;
+  font-family: var(--mono);
+}
+.lint-summary.lint-clean { color: var(--ok); }
+.lint-summary.lint-issues { color: var(--warn); }
+
+.lint-results {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  max-height: 8rem;
+  overflow-y: auto;
+  font-size: 0.78rem;
+}
+
+.lint-finding {
+  padding: 0.2rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.editor-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.editor-error {
+  font-size: 0.78rem;
+  color: var(--danger);
+  margin-right: auto;
+}
+
+/* --- Card pane: embedded datasheet + card content, side by side --- */
+
+.card-pane.with-pdf {
+  display: grid;
+  grid-template-columns: minmax(300px, 40%) 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.pdf-pane {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--bg);
+  height: 78vh;
+  position: sticky;
+  top: 0.75rem;
+}
+
+.pdf-pane-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.65rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 0.75rem;
+}
+
+.pdf-pane-title {
+  font-family: var(--mono);
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdf-page-jump {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.pdf-page-jump input {
+  width: 3.4rem;
+  font: inherit;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 3px;
+  padding: 0.15rem 0.3rem;
+}
+
+.pdf-frame {
+  flex: 1;
+  width: 100%;
+  border: 0;
+  background: #fff;
+}
+
+.pdf-pane-missing {
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+  padding: 1rem;
+}
+
+.card-pane-content { min-width: 0; }
+
+/* Provenance tags with a page citation become live links into the PDF
+   pane -- the one signature interaction in this view: the citation *is*
+   the navigation, not a separate "find page 12 yourself" step. */
+.prov-tag-linked {
+  cursor: pointer;
+  text-decoration: underline dotted;
+  text-underline-offset: 2px;
+}
+.prov-tag-linked:hover { filter: brightness(1.3); }
+
+/* --- Note composer: lightweight incremental knowledge, no full editor --- */
+
+.note-composer {
+  margin-top: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.75rem;
+  background: var(--surface);
+}
+
+.note-composer-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.note-tag-select {
+  font: inherit;
+  font-size: 0.75rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 4px;
+  padding: 0.25rem 0.4rem;
+}
+
+.note-textarea {
+  width: 100%;
+  min-height: 3rem;
+  font: inherit;
+  font-size: 0.82rem;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.5rem;
+  resize: vertical;
+}
+
+.note-composer-row { margin-top: 0.5rem; }
+
+.note-source-input {
+  width: 100%;
+  font: inherit;
+  font-size: 0.8rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 4px;
+  padding: 0.35rem 0.5rem;
+}
+
+.note-composer-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.6rem;
+}
+
+.note-page-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.note-page-label input {
+  width: 3.4rem;
+  font: inherit;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 3px;
+  padding: 0.15rem 0.3rem;
+}
+
+@media (max-width: 1000px) {
+  .card-pane.with-pdf { grid-template-columns: 1fr; }
+  .pdf-pane { height: 45vh; position: static; }
 }

@@ -17,6 +17,7 @@ Usage:
     python cradle_sidecar/tools/project_refresh.py
 """
 
+import datetime
 import sys
 from pathlib import Path
 
@@ -29,8 +30,18 @@ from wiring_check import check_open_items, check_wiring  # noqa: E402
 from card_lint import lint_card  # noqa: E402
 from registry_check import check_registry, summarize  # noqa: E402
 from paths import (  # noqa: E402
-    NETLIST_PATH, BOM_PATH, NETLIST_SUMMARY_PREFIX as NETLIST_PREFIX,
+    ARCHITECTURE_PATH, NETLIST_PATH, BOM_PATH, NETLIST_SUMMARY_PREFIX as NETLIST_PREFIX,
     NET_REGISTRY_PATH as REGISTRY_PATH, COMPONENTS_DIR,
+)
+
+# Shorter mirror of card_lint.py's WRITE_BACK_REMINDER, printed once at the
+# end of a refresh rather than per card -- this is the other natural
+# "wrapping up" moment (often run at the end of a session to confirm
+# nothing's left dangling, not just at the start to get oriented).
+WRITE_BACK_REMINDER = (
+    "Reminder: everything above is a mechanical check, not a completeness "
+    "check. If this session resolved something not yet written into a "
+    "card, net-registry.md, or standard-parts.md, do that before moving on."
 )
 
 
@@ -76,6 +87,10 @@ def main():
 
     print(f"\nSOURCE FRESHNESS: {freshness_line(NETLIST_PATH, BOM_PATH)}")
     print("(If this looks old relative to your last Altium session, re-export before trusting anything below.)")
+
+    if Path(ARCHITECTURE_PATH).exists():
+        mtime = datetime.datetime.fromtimestamp(Path(ARCHITECTURE_PATH).stat().st_mtime)
+        print(f"\nPROJECT VISION: {ARCHITECTURE_PATH} (last edited {mtime.strftime('%Y-%m-%d %H:%M:%S')}) -- read directly, or see sidecar sheet 1.")
 
     components, nets = parse_netlist(NETLIST_PATH)
     bom = parse_bom(BOM_PATH)
@@ -170,6 +185,7 @@ def main():
     print(f"\n{'-' * 70}")
     print("Done. Re-export netlist/BOM from Altium if SOURCE FRESHNESS looks stale.")
     print(f"{'-' * 70}")
+    print(f"\n{WRITE_BACK_REMINDER}")
 
 
 if __name__ == "__main__":

@@ -1,5 +1,25 @@
 # Architecture — Locked
 
+## Subsystem block diagram
+
+Mirrors the Altium hierarchical sheets (`cradle_sidecar/data/altium/sheet-map.md`); bracketed numbers are the BOM `SheetNumber` values used throughout the co-design tooling (`cradle_sidecar/`).
+
+```text
+┌───────────────────────── Cradle [sheet 1] ─────────────────────────┐
+│ ┌───────────────┐ ┌────────────────┐ ┌─────────────────────────┐   │
+│ │ Power         │ │ Compute        │ │ Wireless                │   │
+│ │ Charging  [2] │ │ SoC       [4]  │ │ AP6275S            [6]  │   │
+│ │ PMIC      [3] │ │ Memory    [5]  │ │                         │   │
+│ └───────────────┘ └────────────────┘ └─────────────────────────┘   │
+│ ┌───────────────┐ ┌────────────────┐ ┌─────────────────────────┐   │
+│ │ Storage   [7] │ │ Interfaces [8] │ │ Audio               [9] │   │
+│ └───────────────┘ └────────────────┘ └─────────────────────────┘   │
+└──────────────────────────────────────────────────────────────────┘
+                  ┄ System — debug UART, power/reset buttons,
+                    status LEDs, boot straps (planned; no BOM
+                    sheet number assigned yet) ┄
+```
+
 Cradle is a credit-card sized (85mm x 54mm) edge AI compute platform built around the Rockchip RK3576 SoC. It is a purpose-built consumer logic board — not a carrier board, not an embedded systems project. It targets the gap between Raspberry Pi (no NPU, not battery-native) and Jetson Orin Nano (overkill, expensive, not portable).
 
 **Reference design:** Radxa ROCK 4D (RK3576 + RK806S-5). Primary reference for power tree, DDR topology, and PMIC configuration. Cradle diverges in form factor (credit card vs large SBC), power architecture (battery-native vs wall power only), interface philosophy (flat FPC vs vertical ports), wireless implementation (soldered SDIO vs USB dongle), audio (onboard mics + amp vs none), and software target (AI inference platform vs general purpose SBC). Radxa's schematic is flat topology; Cradle uses hierarchical sheets in Altium, requiring careful port and net name translation.
