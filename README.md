@@ -17,6 +17,7 @@ Compute platform integrating the RK3576 SoC — a credit-card sized (85mm x 54mm
 - [`cradle_sidecar/co-design-workflow.md`](cradle_sidecar/co-design-workflow.md) — why the tooling system exists, what's been tried and rejected, full bug/lesson history, including the sidecar migration itself. **Status: partially built** — Layers 0–0.9 (datasheet index, netlist parse, wiring check, `project_refresh`, `card_lint`, `registry_check`) are real and tested; [`cradle_sidecar/data/net-registry.md`](cradle_sidecar/data/net-registry.md) is seeded (Wireless cross-sheet nets only); Layer 2 sheet contracts are still proposed, not built
 - `cradle_sidecar/data/` — the actual live data: `net-registry.md` (cross-sheet nets), `components/` (curated per-part knowledge cards — copy `_TEMPLATE.md` for new ones; only one real card so far, `AP6275S.md`, built incrementally as design work touches each part), `altium/` (live netlist/BOM exports + derived data), `datasheets/` (vendor PDFs + generated `.index`/`.tables`/`.outline`/`.quickstart` per part)
 - `cradle_sidecar/tools/` — every script above; `paths.py` centralizes every path they use, specifically so a future reorg (or this one) is a one-file change, not a many-file one
+- `cradle_sidecar/app/` — **v0 localhost co-design UI** (`python cradle_sidecar/app/server.py` → http://127.0.0.1:8765/). Read-only views + refresh on click; agents still use CLI tools for everything else
 
 **Repo-wide, not part of either group:**
 - [`CHANGELOG.md`](CHANGELOG.md) — running dated log of what changed, across hardware and firmware

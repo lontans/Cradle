@@ -4,7 +4,8 @@ Running log of what changed and when. Short dated bullets — for the reasoning 
 
 ## 2026-07-08
 - **Repo restructure:** live co-design layer moved to `cradle_sidecar/` (`tools/`, `data/components/`, `data/altium/`, `data/datasheets/`, `data/net-registry.md`, workflow docs). `docs/` now holds only published narrative (architecture, decisions-log, bom, schematic-status). `paths.py` centralizes all tool paths. Verified: tooling output unchanged post-move. Localhost UI (`cradle_sidecar/app/`) explicitly descoped — see `cradle_sidecar/co-design-workflow.md`.
-- Co-design tooling added/enhanced: `project_refresh.py` (one-shot status), `registry_check.py`, `card_lint.py`, `**Wiring targets:**` on component cards, net-registry seeded (19 Wireless cross-sheet rows).
+- Co-design tooling added/enhanced: `project_refresh.py`, `registry_check.py`, `card_lint.py`, net-registry seeded (19 Wireless rows).
+- **Sidecar web UI v0:** `cradle_sidecar/app/` — localhost co-design companion (sheet → parts → cards, net registry, open PDF, refresh on click). Does not edit data or replace agent CLI workflow.
 
 ## 2026-07-07
 - Sheet 5 (Wireless): resolved AP6275S external wiring gaps not covered by AMPAK's datasheet — internal buck regulator pins (`CBUCK_0P9`/`CSR_VLX`, `ASR_VLX`/`ABUCK_1P12`) need external 4.7uH inductor + 4.7uF cap loops; confirmed no SDIO pull-up resistors needed for a soldered point-to-point design; confirmed `SDIO_VSEL` (pin 24) is no-connect. Sourced from a real production schematic (Geniatech CBD-3588) wiring the same module over SDIO — see decisions-log.md

@@ -34,6 +34,10 @@ DATASHEETS_DIR = "cradle_sidecar/data/datasheets"
 WORKFLOW_CHEATSHEET_PATH = "cradle_sidecar/workflow-cheatsheet.md"
 CODESIGN_WORKFLOW_PATH = "cradle_sidecar/co-design-workflow.md"
 
+# --- Sidecar web UI (read-only + project_refresh on user request) ---
+APP_DIR = "cradle_sidecar/app"
+SIDECAR_DEFAULT_PORT = 8765
+
 # --- Published narrative docs -- never machine-written, stay in docs/, listed
 #     here only for completeness/cross-reference, not because tooling writes to them ---
 ARCHITECTURE_PATH = "docs/architecture.md"

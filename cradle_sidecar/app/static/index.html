@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cradle Sidecar</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <h1>Cradle Sidecar</h1>
+      <p class="tagline">Co-design companion — verbatim markdown, refresh on demand</p>
+    </div>
+    <div class="topbar-actions">
+      <span id="freshness" class="freshness">Loading…</span>
+      <button id="refresh-btn" type="button" class="btn primary">Run project refresh</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar" aria-label="Sheets">
+      <h2>Sheets</h2>
+      <ul id="sheet-list"></ul>
+      <h2 class="nav-section">Cross-sheet</h2>
+      <button type="button" id="nav-registry" class="nav-link">Net registry</button>
+    </nav>
+
+    <aside class="parts-panel" id="parts-panel" aria-label="Parts on sheet">
+      <h2>Parts</h2>
+      <button type="button" id="toggle-ambiguous" class="btn small toggle-ambiguous">+ ambiguous BOM rows</button>
+      <p class="placeholder" id="parts-placeholder">Select a sheet</p>
+      <ul id="part-list" class="part-list"></ul>
+    </aside>
+
+    <main class="main" id="panel-main">
+      <p class="placeholder">Select a sheet for descriptor, cross-sheet contracts, and part detail.</p>
+    </main>
+  </div>
+
+  <dialog id="refresh-dialog">
+    <form method="dialog">
+      <h3>Project refresh</h3>
+      <p class="dialog-note">Runs <code>cradle_sidecar/tools/project_refresh.py</code> — same check agents use. Does not edit any files.</p>
+      <pre id="refresh-output"></pre>
+      <button type="submit" class="btn">Close</button>
+    </form>
+  </dialog>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

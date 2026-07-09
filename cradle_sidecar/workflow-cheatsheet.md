@@ -8,6 +8,14 @@ Fast task-to-command lookup for navigating this repo's tooling. For *why* any of
 python cradle_sidecar/tools/project_refresh.py
 ```
 
+Or open the **sidecar web UI** and click **Run project refresh** (same script, read-only otherwise):
+
+```
+python cradle_sidecar/app/server.py
+```
+
+→ http://127.0.0.1:8765/
+
 Re-parses the netlist/BOM, lints every component card, runs `--open` plus reachability checks (when a card has `**Wiring targets:**`), and mechanically validates `cradle_sidecar/data/net-registry.md` against the netlist — one consolidated status instead of running several scripts separately. Doesn't call `datasheet_index.py`/`datasheet_quickstart.py` (those are per-new-datasheet tools, not part of a routine refresh) and doesn't write anything back anywhere — it's a status readout, not an update. Start here, then drill into whichever script's output actually needs a closer look.
 
 ## "I need to research a new component / datasheet"

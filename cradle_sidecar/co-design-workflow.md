@@ -209,16 +209,24 @@ User + Cursor produced a design spec for `cradle_sidecar/`: physically separatin
 
 Verified post-move: `project_refresh.py` output identical to pre-move baseline (118 orphaned pins, 19/19 registry rows, 11/13 open items, 0/15 reachability). `paths.py` worked as designed — the move was repointing one file, not find-and-replace across every script.
 
-**Still deferred (not part of this migration):**
+**Still deferred (not part of migration):**
 - `cradle_sidecar/scripts/update_github_docs.py` — publisher from sidecar data → `docs/` snapshots; not built yet
 - `bom-annotations.yaml` + generated `docs/bom.md` — hand-edited `bom.md` stays as-is for now
-- **Localhost web UI (`cradle_sidecar/app/`)** — explicitly descoped for now; see below
 
-**Prior note (pre-migration):** the diagnosis that `docs/` mixed three roles was agreed early; the full directory move was initially deferred until a working UI existed. The user later requested the move anyway once `paths.py` de-risked it — the UI remains descoped.
+**Prior note (pre-migration):** the diagnosis that `docs/` mixed three roles was agreed early; the full directory move was initially deferred until a working UI existed. The user later requested the move once `paths.py` de-risked it. **UI v0 shipped same day** — see Localhost UI section below.
 
-### Localhost UI — descoped (2026-07-08)
+### Localhost UI — v0 shipped (2026-07-08)
 
-A `cradle_sidecar/app/` web UI beside Altium remains a valid design intent (sheet-aware navigation, rendered component cards, PDF deep-links, mechanical check badges). It is **not being built now**. Rationale: schematic entry and co-design knowledge (`data/`, tooling, write-back discipline) deliver value today; the UI is presentation on top of data that is still sparse (one component card, Wireless sheet only). Building UI before the data layer is richer risks a pretty shell over an empty database. Natural trigger to revisit: when Compute-SoC sheet starts and cross-sheet navigation pain is daily, or when `update_github_docs.py` exists and the publish loop is proven.
+`cradle_sidecar/app/` is a co-design companion from day one of schematic work — not a post-design dashboard. v0 scope:
+
+- **Read-only** views of `data/` (sheets, parts, component cards, net registry + mechanical checks)
+- **User click → `project_refresh.py`** only; no markdown writes, no AI, no datasheet indexing
+- **Open PDF** in system viewer (datasheet double-click)
+- Agents continue using `cradle_sidecar/tools/` and updating `data/` directly — UI does not replace that workflow
+
+Run: `python cradle_sidecar/app/server.py` → http://127.0.0.1:8765/
+
+**Not in v0:** in-browser card editing, Altium sheet auto-sync, `update_github_docs`, LLM in sidebar.
 
 ## Fast orientation
 

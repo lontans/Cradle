@@ -36,6 +36,9 @@ def parse_registry_rows(registry_path):
             "net": net_name.strip(),
             "driven_from": driven.strip(),
             "consumed_by": consumed.strip(),
+            "voltage_domain": domain.strip(),
+            "pull_term": pull.strip(),
+            "protocol": protocol.strip(),
             "soc_pin": soc_pin.strip(),
             "status": status.strip(),
         })
