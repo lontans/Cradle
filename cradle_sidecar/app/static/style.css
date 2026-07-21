@@ -695,18 +695,29 @@ code {
   margin-right: auto;
 }
 
-/* --- Card pane: embedded datasheet + card content, side by side --- */
+/* --- Card pane: embedded datasheet + card content --- */
 
-.card-pane.with-pdf {
-  display: grid;
-  grid-template-columns: minmax(300px, 40%) 1fr;
-  gap: 1.25rem;
-  align-items: start;
+/* Deliberately a float, not a grid: a grid forced every part of the card
+   (including the pin table, the widest thing on the page) into the same
+   narrow column as the PDF for the card's *entire* height. Floating the
+   PDF pane instead lets short prose (summary, power domains) wrap beside
+   it like normal text flow, while any 100%-wide table -- which establishes
+   its own block formatting context and therefore refuses to overlap a
+   float it doesn't fit next to -- automatically drops below the PDF pane
+   on its own, no manual split into a second div required. Clearfix below
+   makes the container actually enclose the float's height. */
+.card-pane.with-pdf::after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 .pdf-pane {
   display: flex;
   flex-direction: column;
+  float: left;
+  width: min(38%, 30rem);
+  margin: 0 1.25rem 1rem 0;
   border: 1px solid var(--border);
   border-radius: 6px;
   overflow: hidden;
@@ -766,7 +777,19 @@ code {
   padding: 1rem;
 }
 
-.card-pane-content { min-width: 0; }
+/* A 100%-wide table (Power domains, Pin table, Net name map) already
+   won't overlap the float on its own -- tables establish their own block
+   formatting context and refuse to fit beside a float they don't have
+   room for. But without this rule, a *short* table could drop below the
+   float and then the paragraph right after it could wrap back up beside
+   whatever float height is left, producing a squeeze/full-width/squeeze
+   zigzag all the way down. Clearing at every section heading instead
+   gives one clean break: the header fields and opening paragraph (before
+   the first "## ...") wrap beside the PDF, everything from the first
+   section heading on renders full-width underneath it, consistently. */
+.card-markdown h2 {
+  clear: both;
+}
 
 /* Provenance tags with a page citation become live links into the PDF
    pane -- the one signature interaction in this view: the citation *is*
@@ -859,6 +882,15 @@ code {
 }
 
 @media (max-width: 1000px) {
-  .card-pane.with-pdf { grid-template-columns: 1fr; }
-  .pdf-pane { height: 45vh; position: static; }
+  /* Narrow/vertical viewport: no room for prose to wrap beside a floated
+     PDF pane without every line breaking after two or three words. Stack
+     instead -- PDF full-width on top, then the card content full-width
+     below, same relative order, just not side-by-side. */
+  .pdf-pane {
+    float: none;
+    width: 100%;
+    margin: 0 0 1rem;
+    height: 45vh;
+    position: static;
+  }
 }

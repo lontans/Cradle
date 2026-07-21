@@ -24,7 +24,7 @@ import sys
 from pathlib import Path
 
 PIN_ROW_RE = re.compile(
-    r"^\|\s*([\d,\-]+)\s*\|\s*([^|]+?)\s*\|\s*([^|]+)\|\s*([^|]+)\|\s*([^|]+)\|\s*([^|]+)\|\s*$"
+    r"^\|\s*([A-Za-z0-9,\-]+)\s*\|\s*([^|]+?)\s*\|\s*([^|]+)\|\s*([^|]+)\|\s*([^|]+)\|\s*([^|]+)\|\s*$"
 )
 
 # The actual tell of non-self-contained shorthand is a *positional* reference

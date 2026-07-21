@@ -695,7 +695,8 @@ async function openFile(path) {
 }
 
 const USAGE_STORAGE_KEY = "sidecar_total_usage_seconds";
-let usageTimerInterval = null;
+let usageBaseline = 0;
+let usageSessionStart = null;
 
 function formatDuration(totalSeconds) {
   const h = Math.floor(totalSeconds / 3600);
@@ -706,27 +707,33 @@ function formatDuration(totalSeconds) {
   return `${s}s`;
 }
 
-// Runs for the lifetime of the page (started once from init()), independent
-// of which view is showing -- only updates the #usage-* DOM elements when
-// Home is actually on screen, but keeps persisting to localStorage
-// regardless so "all-time" keeps accruing across every visit in this
-// browser, not just the current tab session. Baseline + elapsed (rewritten
-// each tick) rather than incrementing the stored value directly, so an
-// abrupt tab close can't double-count a session that never got flushed.
+// Recomputes and paints the usage numbers from the fixed session-start
+// timestamp -- safe to call as often as we like (every tick, and once
+// immediately whenever Home is redisplayed) since it never resets the
+// clock itself, only reads it.
+function updateUsageDisplay() {
+  if (usageSessionStart === null) return;
+  const sessionElapsed = Math.floor((Date.now() - usageSessionStart) / 1000);
+  localStorage.setItem(USAGE_STORAGE_KEY, String(usageBaseline + sessionElapsed));
+  const sessionEl = $("#usage-session");
+  const totalEl = $("#usage-total");
+  if (sessionEl) sessionEl.textContent = formatDuration(sessionElapsed);
+  if (totalEl) totalEl.textContent = formatDuration(usageBaseline + sessionElapsed);
+}
+
+// Called exactly once, from init() -- the session clock has to start at
+// actual page load and never reset after that. Previously this ran again
+// every time showHome() rendered, which reset sessionStart to "now" on
+// every visit to Home, so "this session" only ever showed the time since
+// the *last* time you looked at Home, not since the page was opened. The
+// ongoing interval keeps persisting to localStorage regardless of which
+// view is on screen; only the DOM update in updateUsageDisplay() is
+// conditional on Home actually being open.
 function startUsageTimer() {
-  const baseline = parseInt(localStorage.getItem(USAGE_STORAGE_KEY) || "0", 10);
-  const sessionStart = Date.now();
-  const tick = () => {
-    const sessionElapsed = Math.floor((Date.now() - sessionStart) / 1000);
-    localStorage.setItem(USAGE_STORAGE_KEY, String(baseline + sessionElapsed));
-    const sessionEl = $("#usage-session");
-    const totalEl = $("#usage-total");
-    if (sessionEl) sessionEl.textContent = formatDuration(sessionElapsed);
-    if (totalEl) totalEl.textContent = formatDuration(baseline + sessionElapsed);
-  };
-  tick();
-  if (usageTimerInterval) clearInterval(usageTimerInterval);
-  usageTimerInterval = setInterval(tick, 1000);
+  usageBaseline = parseInt(localStorage.getItem(USAGE_STORAGE_KEY) || "0", 10);
+  usageSessionStart = Date.now();
+  updateUsageDisplay();
+  setInterval(updateUsageDisplay, 1000);
 }
 
 function statTile(value, label, opts = {}) {
@@ -801,7 +808,7 @@ async function showHome() {
     </section>
   `;
 
-  startUsageTimer();
+  updateUsageDisplay();
 }
 
 async function runRefresh() {
@@ -847,6 +854,7 @@ function escapeAttr(s) {
 }
 
 async function init() {
+  startUsageTimer();
   $("#refresh-btn").addEventListener("click", runRefresh);
   $("#brand-home").addEventListener("click", () => showHome());
   $("#nav-registry").addEventListener("click", (e) => showRegistry(e.target));

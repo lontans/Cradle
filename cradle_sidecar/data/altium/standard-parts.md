@@ -22,5 +22,6 @@ Designators the user holds/copy-pastes around the Altium canvas as generic stock
 | LED3 | JLC_XL-0603QYGC | Green LED 0603 |
 | L9 | SLS3D16S2R2NTT | 2.2uH, 1A, 60mOhm DCR, 4x4mm shielded |
 | C88 | CL10A475KP8NNNC | 4.7uF X5R 0603 |
+| R62 | TFCR0603-10W-C-4701FT-1K | 4.7kOhm 0603 (thin film, 1%) |
 
 **How this should get used:** when cross-referencing a component card's pin table against the real netlist (e.g. "which AP6275S pins still need wiring"), any net whose only members are designators on this list should be treated as *not yet functionally connected* — it's staged stock sitting on a net, not a real circuit connection, even though it technically isn't "missing" from the netlist's point of view.

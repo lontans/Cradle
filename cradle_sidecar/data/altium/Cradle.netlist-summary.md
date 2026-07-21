@@ -1,12 +1,12 @@
 # Netlist summary: Cradle.NET
 
-**Source freshness:** Cradle.NET: exported 2026-07-09 01:12:41
+**Source freshness:** Cradle.NET: exported 2026-07-21 00:46:31
 
 Auto-generated. Deterministic parse of the Protel netlist + BOM -- no interpretation of intent, just what's actually wired. `floating` = single-pin net (rare, usually a real error). `unlabeled` = Altium auto-generated name, no manual net label placed (common on in-progress sheets, not necessarily wrong). Neither flag catches a pin with *no* net entry at all -- that requires comparing against a component's full pin table separately; see get_designator_pins() in netlist_parse.py. **A 'net doesn't exist' or 'pin has no connection' finding is indistinguishable from a stale export** -- re-export before trusting a missing-net report, and treat hierarchical port resolution (does a net label actually reach a matching Sheet Entry) as something only Altium's own ERC/Compile output can confirm, not this parser.
 
-Components: 189. Nets: 627.
+Components: 236. Nets: 588.
 
-Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hierarchical port net, expected to be single-pin until the far sheet exists -- not a problem by itself), 32 on known staged/standard parts (`cradle_sidecar/data/altium/standard-parts.md` -- expected, excluded from review below), and 114 genuinely unexplained auto-named orphans -- these are the real candidates for review/No Connect.
+Single-pin nets: 458 total -- 332 deliberately named (`pending-port`: a real hierarchical port net, expected to be single-pin until the far sheet exists -- not a problem by itself), 34 on known staged/standard parts (`cradle_sidecar/data/altium/standard-parts.md` -- expected, excluded from review below), and 92 genuinely unexplained auto-named orphans -- these are the real candidates for review/No Connect.
 
 ## Orphaned pins (auto-named, no label, connects to nothing, not a known staged part -- review these)
 
@@ -101,29 +101,7 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU6_3 | U6-3 | RK806S-5 | Cradle_Power_PMIC |
 | NetU6_38 | U6-38 | RK806S-5 | Cradle_Power_PMIC |
 | NetU6_48 | U6-48 | RK806S-5 | Cradle_Power_PMIC |
-| NetU8_1 | U8-1 | HDMI-519S | Cradle_Interfaces |
-| NetU8_10 | U8-10 | HDMI-519S | Cradle_Interfaces |
-| NetU8_11 | U8-11 | HDMI-519S | Cradle_Interfaces |
-| NetU8_12 | U8-12 | HDMI-519S | Cradle_Interfaces |
-| NetU8_13 | U8-13 | HDMI-519S | Cradle_Interfaces |
-| NetU8_14 | U8-14 | HDMI-519S | Cradle_Interfaces |
-| NetU8_15 | U8-15 | HDMI-519S | Cradle_Interfaces |
-| NetU8_16 | U8-16 | HDMI-519S | Cradle_Interfaces |
 | NetU8_17 | U8-17 | HDMI-519S | Cradle_Interfaces |
-| NetU8_18 | U8-18 | HDMI-519S | Cradle_Interfaces |
-| NetU8_19 | U8-19 | HDMI-519S | Cradle_Interfaces |
-| NetU8_2 | U8-2 | HDMI-519S | Cradle_Interfaces |
-| NetU8_20 | U8-20 | HDMI-519S | Cradle_Interfaces |
-| NetU8_21 | U8-21 | HDMI-519S | Cradle_Interfaces |
-| NetU8_22 | U8-22 | HDMI-519S | Cradle_Interfaces |
-| NetU8_23 | U8-23 | HDMI-519S | Cradle_Interfaces |
-| NetU8_3 | U8-3 | HDMI-519S | Cradle_Interfaces |
-| NetU8_4 | U8-4 | HDMI-519S | Cradle_Interfaces |
-| NetU8_5 | U8-5 | HDMI-519S | Cradle_Interfaces |
-| NetU8_6 | U8-6 | HDMI-519S | Cradle_Interfaces |
-| NetU8_7 | U8-7 | HDMI-519S | Cradle_Interfaces |
-| NetU8_8 | U8-8 | HDMI-519S | Cradle_Interfaces |
-| NetU8_9 | U8-9 | HDMI-519S | Cradle_Interfaces |
 | NetUSB1_0 | USB1-0 | JLC_TYPE-C 16P QTWT | Cradle_Interfaces |
 | NetUSB2_0 | USB2-0 | JLC_TYPE-C 16P QTWT | Cradle_Interfaces |
 
@@ -143,13 +121,13 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | WIRELESS_BT_HOST_WAKE | U2-50 | Cradle_Wireless |
 | WIRELESS_3V3 | U2-36 | Cradle_Wireless |
 | VDU_CPU_BIG_3 | U6-49 | Cradle_Power_PMIC |
-| STORAGE_CLK_7 | Card1-5 | Cradle_Storage |
 | SPK_SD_MODE | U9-A1 | Cradle_Audio |
 | SPK_OUTP | U9-A3 | Cradle_Audio |
 | SPK_OUTN | U9-B3 | Cradle_Audio |
 | SPK_LRCLK | U9-C3 | Cradle_Audio |
 | SPK_DIN | U9-B1 | Cradle_Audio |
 | SPK_BCLK | U9-C1 | Cradle_Audio |
+| SD_CLK | Card1-5 | Cradle_Storage |
 | RESET_L | U6-40 | Cradle_Power_PMIC |
 | PWRON_L | R13-1 | Cradle_Power_PMIC |
 | PMIC_PWR_CTRL_2 | U6-61 | Cradle_Power_PMIC |
@@ -182,25 +160,17 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetUSB1_A1 | USB1-A1 | Cradle_Interfaces |
 | NetU9_B2 | U9-B2 | Cradle_Audio |
 | NetU5_K12 | U5-K12 | Cradle_Compute_Memory |
-| NetU5_K11 | U5-K11 | Cradle_Compute_Memory |
 | NetU5_K10 | U5-K10 | Cradle_Compute_Memory |
-| NetU5_K9 | U5-K9 | Cradle_Compute_Memory |
 | NetU5_K8 | U5-K8 | Cradle_Compute_Memory |
 | NetU5_K5 | U5-K5 | Cradle_Compute_Memory |
-| NetU5_K4 | U5-K4 | Cradle_Compute_Memory |
 | NetU5_K3 | U5-K3 | Cradle_Compute_Memory |
-| NetU5_K2 | U5-K2 | Cradle_Compute_Memory |
 | NetU5_K1 | U5-K1 | Cradle_Compute_Memory |
-| NetU5_J12 | U5-J12 | Cradle_Compute_Memory |
 | NetU5_J11 | U5-J11 | Cradle_Compute_Memory |
-| NetU5_J10 | U5-J10 | Cradle_Compute_Memory |
 | NetU5_J9 | U5-J9 | Cradle_Compute_Memory |
 | NetU5_J8 | U5-J8 | Cradle_Compute_Memory |
 | NetU5_J5 | U5-J5 | Cradle_Compute_Memory |
 | NetU5_J4 | U5-J4 | Cradle_Compute_Memory |
-| NetU5_J3 | U5-J3 | Cradle_Compute_Memory |
 | NetU5_J2 | U5-J2 | Cradle_Compute_Memory |
-| NetU5_J1 | U5-J1 | Cradle_Compute_Memory |
 | NetU5_H12 | U5-H12 | Cradle_Compute_Memory |
 | NetU5_H11 | U5-H11 | Cradle_Compute_Memory |
 | NetU5_H10 | U5-H10 | Cradle_Compute_Memory |
@@ -211,16 +181,10 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU5_H3 | U5-H3 | Cradle_Compute_Memory |
 | NetU5_H2 | U5-H2 | Cradle_Compute_Memory |
 | NetU5_H1 | U5-H1 | Cradle_Compute_Memory |
-| NetU5_G12 | U5-G12 | Cradle_Compute_Memory |
 | NetU5_G11 | U5-G11 | Cradle_Compute_Memory |
-| NetU5_G10 | U5-G10 | Cradle_Compute_Memory |
 | NetU5_G9 | U5-G9 | Cradle_Compute_Memory |
-| NetU5_G8 | U5-G8 | Cradle_Compute_Memory |
-| NetU5_G5 | U5-G5 | Cradle_Compute_Memory |
 | NetU5_G4 | U5-G4 | Cradle_Compute_Memory |
-| NetU5_G3 | U5-G3 | Cradle_Compute_Memory |
 | NetU5_G2 | U5-G2 | Cradle_Compute_Memory |
-| NetU5_G1 | U5-G1 | Cradle_Compute_Memory |
 | NetU5_F12 | U5-F12 | Cradle_Compute_Memory |
 | NetU5_F11 | U5-F11 | Cradle_Compute_Memory |
 | NetU5_F10 | U5-F10 | Cradle_Compute_Memory |
@@ -231,36 +195,24 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU5_F3 | U5-F3 | Cradle_Compute_Memory |
 | NetU5_F2 | U5-F2 | Cradle_Compute_Memory |
 | NetU5_F1 | U5-F1 | Cradle_Compute_Memory |
-| NetU5_E12 | U5-E12 | Cradle_Compute_Memory |
 | NetU5_E11 | U5-E11 | Cradle_Compute_Memory |
 | NetU5_E10 | U5-E10 | Cradle_Compute_Memory |
 | NetU5_E9 | U5-E9 | Cradle_Compute_Memory |
-| NetU5_E8 | U5-E8 | Cradle_Compute_Memory |
-| NetU5_E5 | U5-E5 | Cradle_Compute_Memory |
 | NetU5_E4 | U5-E4 | Cradle_Compute_Memory |
 | NetU5_E3 | U5-E3 | Cradle_Compute_Memory |
 | NetU5_E2 | U5-E2 | Cradle_Compute_Memory |
-| NetU5_E1 | U5-E1 | Cradle_Compute_Memory |
 | NetU5_D12 | U5-D12 | Cradle_Compute_Memory |
-| NetU5_D11 | U5-D11 | Cradle_Compute_Memory |
 | NetU5_D10 | U5-D10 | Cradle_Compute_Memory |
-| NetU5_D9 | U5-D9 | Cradle_Compute_Memory |
 | NetU5_D8 | U5-D8 | Cradle_Compute_Memory |
 | NetU5_D5 | U5-D5 | Cradle_Compute_Memory |
-| NetU5_D4 | U5-D4 | Cradle_Compute_Memory |
 | NetU5_D3 | U5-D3 | Cradle_Compute_Memory |
-| NetU5_D2 | U5-D2 | Cradle_Compute_Memory |
 | NetU5_D1 | U5-D1 | Cradle_Compute_Memory |
-| NetU5_C12 | U5-C12 | Cradle_Compute_Memory |
 | NetU5_C11 | U5-C11 | Cradle_Compute_Memory |
 | NetU5_C10 | U5-C10 | Cradle_Compute_Memory |
 | NetU5_C9 | U5-C9 | Cradle_Compute_Memory |
-| NetU5_C8 | U5-C8 | Cradle_Compute_Memory |
-| NetU5_C5 | U5-C5 | Cradle_Compute_Memory |
 | NetU5_C4 | U5-C4 | Cradle_Compute_Memory |
 | NetU5_C3 | U5-C3 | Cradle_Compute_Memory |
 | NetU5_C2 | U5-C2 | Cradle_Compute_Memory |
-| NetU5_C1 | U5-C1 | Cradle_Compute_Memory |
 | NetU5_B12 | U5-B12 | Cradle_Compute_Memory |
 | NetU5_B11 | U5-B11 | Cradle_Compute_Memory |
 | NetU5_B10 | U5-B10 | Cradle_Compute_Memory |
@@ -273,12 +225,10 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU5_B1 | U5-B1 | Cradle_Compute_Memory |
 | NetU5_A12 | U5-A12 | Cradle_Compute_Memory |
 | NetU5_A11 | U5-A11 | Cradle_Compute_Memory |
-| NetU5_A10 | U5-A10 | Cradle_Compute_Memory |
 | NetU5_A9 | U5-A9 | Cradle_Compute_Memory |
 | NetU5_A8 | U5-A8 | Cradle_Compute_Memory |
 | NetU5_A5 | U5-A5 | Cradle_Compute_Memory |
 | NetU5_A4 | U5-A4 | Cradle_Compute_Memory |
-| NetU5_A3 | U5-A3 | Cradle_Compute_Memory |
 | NetU5_A2 | U5-A2 | Cradle_Compute_Memory |
 | NetU5_A1 | U5-A1 | Cradle_Compute_Memory |
 | NetU3_P14 | U3-P14 | Cradle_Storage |
@@ -289,10 +239,6 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU3_P9 | U3-P9 | Cradle_Storage |
 | NetU3_P8 | U3-P8 | Cradle_Storage |
 | NetU3_P7 | U3-P7 | Cradle_Storage |
-| NetU3_P6 | U3-P6 | Cradle_Storage |
-| NetU3_P5 | U3-P5 | Cradle_Storage |
-| NetU3_P4 | U3-P4 | Cradle_Storage |
-| NetU3_P3 | U3-P3 | Cradle_Storage |
 | NetU3_P2 | U3-P2 | Cradle_Storage |
 | NetU3_P1 | U3-P1 | Cradle_Storage |
 | NetU3_N14 | U3-N14 | Cradle_Storage |
@@ -304,10 +250,7 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU3_N8 | U3-N8 | Cradle_Storage |
 | NetU3_N7 | U3-N7 | Cradle_Storage |
 | NetU3_N6 | U3-N6 | Cradle_Storage |
-| NetU3_N5 | U3-N5 | Cradle_Storage |
-| NetU3_N4 | U3-N4 | Cradle_Storage |
 | NetU3_N3 | U3-N3 | Cradle_Storage |
-| NetU3_N2 | U3-N2 | Cradle_Storage |
 | NetU3_N1 | U3-N1 | Cradle_Storage |
 | NetU3_M14 | U3-M14 | Cradle_Storage |
 | NetU3_M13 | U3-M13 | Cradle_Storage |
@@ -317,9 +260,6 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU3_M9 | U3-M9 | Cradle_Storage |
 | NetU3_M8 | U3-M8 | Cradle_Storage |
 | NetU3_M7 | U3-M7 | Cradle_Storage |
-| NetU3_M6 | U3-M6 | Cradle_Storage |
-| NetU3_M5 | U3-M5 | Cradle_Storage |
-| NetU3_M4 | U3-M4 | Cradle_Storage |
 | NetU3_M3 | U3-M3 | Cradle_Storage |
 | NetU3_M2 | U3-M2 | Cradle_Storage |
 | NetU3_M1 | U3-M1 | Cradle_Storage |
@@ -333,27 +273,20 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU3_K13 | U3-K13 | Cradle_Storage |
 | NetU3_K12 | U3-K12 | Cradle_Storage |
 | NetU3_K10 | U3-K10 | Cradle_Storage |
-| NetU3_K9 | U3-K9 | Cradle_Storage |
-| NetU3_K8 | U3-K8 | Cradle_Storage |
 | NetU3_K7 | U3-K7 | Cradle_Storage |
 | NetU3_K6 | U3-K6 | Cradle_Storage |
-| NetU3_K5 | U3-K5 | Cradle_Storage |
 | NetU3_K3 | U3-K3 | Cradle_Storage |
 | NetU3_K2 | U3-K2 | Cradle_Storage |
 | NetU3_K1 | U3-K1 | Cradle_Storage |
 | NetU3_J14 | U3-J14 | Cradle_Storage |
 | NetU3_J13 | U3-J13 | Cradle_Storage |
 | NetU3_J12 | U3-J12 | Cradle_Storage |
-| NetU3_J10 | U3-J10 | Cradle_Storage |
-| NetU3_J5 | U3-J5 | Cradle_Storage |
 | NetU3_J3 | U3-J3 | Cradle_Storage |
 | NetU3_J2 | U3-J2 | Cradle_Storage |
 | NetU3_J1 | U3-J1 | Cradle_Storage |
 | NetU3_H14 | U3-H14 | Cradle_Storage |
 | NetU3_H13 | U3-H13 | Cradle_Storage |
 | NetU3_H12 | U3-H12 | Cradle_Storage |
-| NetU3_H10 | U3-H10 | Cradle_Storage |
-| NetU3_H5 | U3-H5 | Cradle_Storage |
 | NetU3_H3 | U3-H3 | Cradle_Storage |
 | NetU3_H2 | U3-H2 | Cradle_Storage |
 | NetU3_H1 | U3-H1 | Cradle_Storage |
@@ -361,7 +294,6 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU3_G13 | U3-G13 | Cradle_Storage |
 | NetU3_G12 | U3-G12 | Cradle_Storage |
 | NetU3_G10 | U3-G10 | Cradle_Storage |
-| NetU3_G5 | U3-G5 | Cradle_Storage |
 | NetU3_G3 | U3-G3 | Cradle_Storage |
 | NetU3_G2 | U3-G2 | Cradle_Storage |
 | NetU3_G1 | U3-G1 | Cradle_Storage |
@@ -369,7 +301,6 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU3_F13 | U3-F13 | Cradle_Storage |
 | NetU3_F12 | U3-F12 | Cradle_Storage |
 | NetU3_F10 | U3-F10 | Cradle_Storage |
-| NetU3_F5 | U3-F5 | Cradle_Storage |
 | NetU3_F3 | U3-F3 | Cradle_Storage |
 | NetU3_F2 | U3-F2 | Cradle_Storage |
 | NetU3_F1 | U3-F1 | Cradle_Storage |
@@ -379,8 +310,6 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU3_E10 | U3-E10 | Cradle_Storage |
 | NetU3_E9 | U3-E9 | Cradle_Storage |
 | NetU3_E8 | U3-E8 | Cradle_Storage |
-| NetU3_E7 | U3-E7 | Cradle_Storage |
-| NetU3_E6 | U3-E6 | Cradle_Storage |
 | NetU3_E5 | U3-E5 | Cradle_Storage |
 | NetU3_E3 | U3-E3 | Cradle_Storage |
 | NetU3_E2 | U3-E2 | Cradle_Storage |
@@ -400,11 +329,8 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU3_C9 | U3-C9 | Cradle_Storage |
 | NetU3_C8 | U3-C8 | Cradle_Storage |
 | NetU3_C7 | U3-C7 | Cradle_Storage |
-| NetU3_C6 | U3-C6 | Cradle_Storage |
 | NetU3_C5 | U3-C5 | Cradle_Storage |
-| NetU3_C4 | U3-C4 | Cradle_Storage |
 | NetU3_C3 | U3-C3 | Cradle_Storage |
-| NetU3_C2 | U3-C2 | Cradle_Storage |
 | NetU3_C1 | U3-C1 | Cradle_Storage |
 | NetU3_B14 | U3-B14 | Cradle_Storage |
 | NetU3_B13 | U3-B13 | Cradle_Storage |
@@ -414,11 +340,6 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU3_B9 | U3-B9 | Cradle_Storage |
 | NetU3_B8 | U3-B8 | Cradle_Storage |
 | NetU3_B7 | U3-B7 | Cradle_Storage |
-| NetU3_B6 | U3-B6 | Cradle_Storage |
-| NetU3_B5 | U3-B5 | Cradle_Storage |
-| NetU3_B4 | U3-B4 | Cradle_Storage |
-| NetU3_B3 | U3-B3 | Cradle_Storage |
-| NetU3_B2 | U3-B2 | Cradle_Storage |
 | NetU3_B1 | U3-B1 | Cradle_Storage |
 | NetU3_A14 | U3-A14 | Cradle_Storage |
 | NetU3_A13 | U3-A13 | Cradle_Storage |
@@ -428,10 +349,6 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU3_A9 | U3-A9 | Cradle_Storage |
 | NetU3_A8 | U3-A8 | Cradle_Storage |
 | NetU3_A7 | U3-A7 | Cradle_Storage |
-| NetU3_A6 | U3-A6 | Cradle_Storage |
-| NetU3_A5 | U3-A5 | Cradle_Storage |
-| NetU3_A4 | U3-A4 | Cradle_Storage |
-| NetU3_A3 | U3-A3 | Cradle_Storage |
 | NetU3_A2 | U3-A2 | Cradle_Storage |
 | NetU3_A1 | U3-A1 | Cradle_Storage |
 | NetU1_N29 | U1-N29 | Cradle_Compute_SOC |
@@ -512,6 +429,16 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU1_A1 | U1-A1 | Cradle_Compute_SOC |
 | I2C1_SDA_M0_RK806 | U6-15 | Cradle_Power_PMIC |
 | I2C1_SCL_M0_RK806 | U6-17 | Cradle_Power_PMIC |
+| HDMI_D2_P | D5-1 | Cradle_Interfaces |
+| HDMI_D2_N | D5-2 | Cradle_Interfaces |
+| HDMI_D1_P | D4-1 | Cradle_Interfaces |
+| HDMI_D1_N | D4-2 | Cradle_Interfaces |
+| HDMI_D0_P | D6-1 | Cradle_Interfaces |
+| HDMI_D0_N | D6-2 | Cradle_Interfaces |
+| HDMI_CLK_P | D7-1 | Cradle_Interfaces |
+| HDMI_CLK_N | D7-2 | Cradle_Interfaces |
+| EMMC_DS_TOGGLE | Q2-1 | ambiguous(Cradle_Storage, Cradle_Interfaces) |
+| EMMC_CLK | U3-M6 | Cradle_Storage |
 | BQ_PSEL | U10-2 | Cradle_Power_Charging |
 | BQ_CE | U10-9 | Cradle_Power_Charging |
 
@@ -528,16 +455,51 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | BQ_SDA | R2-2(TNPW040210K0DEED@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Wireless)), U10-6(BQ25601RTWR@Cradle_Power_Charging) | - |
 | BQ_VBUS | C1-1(GRM188C61E226ME01J@Cradle_Power_Charging), C2-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), D2-1(PESD5V0S1BA,115@Cradle_Power_Charging), U10-1(BQ25601RTWR@Cradle_Power_Charging), U10-24(BQ25601RTWR@Cradle_Power_Charging) | - |
 | BQ_VREF | R1-1(TNPW040210K0DEED@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Wireless)), R2-1(TNPW040210K0DEED@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Wireless)), R3-1(TNPW040210K0DEED@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Wireless)) | - |
-| GND | C1-2(GRM188C61E226ME01J@Cradle_Power_Charging), C2-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C3-2(885012106031@Cradle_Power_Charging), C4-2(CC0402MRX5R7BB475@Cradle_Power_Charging), C6-2(885012106031@Cradle_Power_Charging), C7-2(885012106031@Cradle_Power_Charging), C15-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C16-2(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C17-2(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C18-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C19-2(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C20-2(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C21-1(JLC_22uF_0603_C1608X5R1A226MT000E@ambiguous(Cradle_Power_PMIC, Cradle (top-level/block-diagram sheet))), C23-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C24-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C26-2(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C27-2(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C28-1(JLC_22uF_0603_C1608X5R1A226MT000E@ambiguous(Cradle_Power_PMIC, Cradle (top-level/block-diagram sheet))), C29-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C31-2(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C32-2(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C33-1(JLC_22uF_0603_C1608X5R1A226MT000E@ambiguous(Cradle_Power_PMIC, Cradle (top-level/block-diagram sheet))), C34-2(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C35-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C36-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C38-2(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C39-2(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C40-1(JLC_22uF_0603_C1608X5R1A226MT000E@ambiguous(Cradle_Power_PMIC, Cradle (top-level/block-diagram sheet))), C41-2(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C42-2(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C43-2(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C44-2(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C45-2(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C46-2(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C47-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C48-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C49-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C50-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C52-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C53-2(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C54-2(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C55-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C56-2(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C57-2(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C58-1(JLC_22uF_0603_C1608X5R1A226MT000E@ambiguous(Cradle_Power_PMIC, Cradle (top-level/block-diagram sheet))), C59-2(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C60-2(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C61-2(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C62-2(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C63-2(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C64-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C65-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C67-2(JLC_0402B102K500NT@Cradle_Power_PMIC), C68-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C70-2(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C71-2(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C72-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C74-2(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C75-2(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C76-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C77-2(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C78-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C79-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C81-1(JLC_30pF_0402CG300J500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless)), C82-1(JLC_30pF_0402CG300J500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless)), C86-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C87-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C89-2(CL10A475KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless)), C90-2(CL10A475KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless)), C91-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C92-2(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), Card1-6(TF-01A@Cradle_Storage), Card1-10(TF-01A@Cradle_Storage), Card1-11(TF-01A@Cradle_Storage), Card1-12(TF-01A@Cradle_Storage), Card1-13(TF-01A@Cradle_Storage), D2-2(PESD5V0S1BA,115@Cradle_Power_Charging), D3-2(JLC_SD103AX@Cradle_Power_PMIC), MIC1-2(MMICT390200012@Cradle_Audio), MIC1-3(MMICT390200012@Cradle_Audio), MIC2-3(MMICT390200012@Cradle_Audio), P1-2(S2B-PH-K-S(LF)(SN)@ambiguous(Cradle_Power_Charging, Cradle_Interfaces)), Q1-1(DMP2035U-7@Cradle_Power_Charging), R7-2(103AT-2@Cradle_Power_Charging), R8-2(RT0402FRE0730K1L@Cradle_Power_Charging), R11-2(AC0402JR-13100KL@Cradle_Power_PMIC), R18-2(AC0402JR-13100KL@Cradle_Power_PMIC), R20-2(CRG0402F200K@Cradle_Power_PMIC), R24-2(AC0402JR-13100KL@Cradle_Power_PMIC), SW1-3(JLC_KMR221GLFS@Cradle_Power_Charging), SW1-4(JLC_KMR221GLFS@Cradle_Power_Charging), U2-1(AP6275S@Cradle_Wireless), U2-3(AP6275S@Cradle_Wireless), U2-4(AP6275S@Cradle_Wireless), U2-5(AP6275S@Cradle_Wireless), U2-6(AP6275S@Cradle_Wireless), U2-7(AP6275S@Cradle_Wireless), U2-8(AP6275S@Cradle_Wireless), U2-10(AP6275S@Cradle_Wireless), U2-11(AP6275S@Cradle_Wireless), U2-23(AP6275S@Cradle_Wireless), U2-27(AP6275S@Cradle_Wireless), U2-30(AP6275S@Cradle_Wireless), U2-32(AP6275S@Cradle_Wireless), U2-39(AP6275S@Cradle_Wireless), U6-69(RK806S-5@Cradle_Power_PMIC), U9-C2(MAX98357AEWL+T@Cradle_Audio), U10-17(BQ25601RTWR@Cradle_Power_Charging), U10-18(BQ25601RTWR@Cradle_Power_Charging), U10-25(BQ25601RTWR@Cradle_Power_Charging), U14-1(JLC_32.768KHz_SIT1552AI-JF-DCC-32.768D@Cradle_Wireless), U14-4(JLC_32.768KHz_SIT1552AI-JF-DCC-32.768D@Cradle_Wireless), X1-2(JLC_37.4_MHz_7M37470001@Cradle_Wireless), X1-4(JLC_37.4_MHz_7M37470001@Cradle_Wireless) | - |
+| EMMC_CLK | U3-M6(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
+| EMMC_CMD | R51-1(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), U3-M5(EMMC04G-M627-Y02U@Cradle_Storage) | - |
+| EMMC_D0 | R52-1(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), U3-A3(EMMC04G-M627-Y02U@Cradle_Storage) | - |
+| EMMC_D1 | R53-1(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), U3-A4(EMMC04G-M627-Y02U@Cradle_Storage) | - |
+| EMMC_D2 | R54-1(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), U3-A5(EMMC04G-M627-Y02U@Cradle_Storage) | - |
+| EMMC_D3 | R55-1(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), U3-B2(EMMC04G-M627-Y02U@Cradle_Storage) | - |
+| EMMC_D4 | R56-1(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), U3-B3(EMMC04G-M627-Y02U@Cradle_Storage) | - |
+| EMMC_D5 | R57-1(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), U3-B4(EMMC04G-M627-Y02U@Cradle_Storage) | - |
+| EMMC_D6 | R58-1(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), U3-B5(EMMC04G-M627-Y02U@Cradle_Storage) | - |
+| EMMC_D7 | R59-1(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), U3-B6(EMMC04G-M627-Y02U@Cradle_Storage) | - |
+| EMMC_DS | R61-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), U3-H5(EMMC04G-M627-Y02U@Cradle_Storage) | - |
+| EMMC_DS_TOGGLE | Q2-1(JLC_LBSS138LT1G@ambiguous(Cradle_Storage, Cradle_Interfaces)) | pending-port |
+| EMMC_RST_N | R60-1(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), U3-K5(EMMC04G-M627-Y02U@Cradle_Storage) | - |
+| GND | C1-2(GRM188C61E226ME01J@Cradle_Power_Charging), C2-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C3-2(885012106031@Cradle_Power_Charging), C4-2(CC0402MRX5R7BB475@Cradle_Power_Charging), C6-2(885012106031@Cradle_Power_Charging), C7-2(885012106031@Cradle_Power_Charging), C15-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C16-2(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C17-2(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C18-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C19-2(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C20-2(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C21-1(JLC_22uF_0603_C1608X5R1A226MT000E@ambiguous(Cradle_Power_PMIC, Cradle (top-level/block-diagram sheet))), C23-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C24-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C26-2(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C27-2(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C28-1(JLC_22uF_0603_C1608X5R1A226MT000E@ambiguous(Cradle_Power_PMIC, Cradle (top-level/block-diagram sheet))), C29-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C31-2(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C32-2(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C33-1(JLC_22uF_0603_C1608X5R1A226MT000E@ambiguous(Cradle_Power_PMIC, Cradle (top-level/block-diagram sheet))), C34-2(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C35-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C36-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C38-2(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C39-2(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C40-1(JLC_22uF_0603_C1608X5R1A226MT000E@ambiguous(Cradle_Power_PMIC, Cradle (top-level/block-diagram sheet))), C41-2(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C42-2(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C43-2(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C44-2(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C45-2(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C46-2(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C47-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C48-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C49-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C50-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C52-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C53-2(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C54-2(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C55-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C56-2(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C57-2(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C58-1(JLC_22uF_0603_C1608X5R1A226MT000E@ambiguous(Cradle_Power_PMIC, Cradle (top-level/block-diagram sheet))), C59-2(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C60-2(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C61-2(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C62-2(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C63-2(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C64-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C65-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C67-2(JLC_0402B102K500NT@Cradle_Power_PMIC), C68-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C70-2(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C71-2(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C72-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C74-2(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C75-2(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C76-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C77-2(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C78-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C79-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C81-1(JLC_30pF_0402CG300J500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless)), C82-1(JLC_30pF_0402CG300J500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless)), C86-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C87-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C89-2(CL10A475KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), C90-2(CL10A475KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), C91-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C92-2(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C93-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C94-2(CL10A475KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), C95-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C96-2(CL10A475KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), C97-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C98-2(CL10A475KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), C99-2(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C100-2(CL10A475KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), C101-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C102-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C103-2(CL10A475KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), C104-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C105-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C106-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C107-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C108-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C109-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C110-2(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C111-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), Card1-6(TF-01A@Cradle_Storage), Card1-10(TF-01A@Cradle_Storage), Card1-11(TF-01A@Cradle_Storage), Card1-12(TF-01A@Cradle_Storage), Card1-13(TF-01A@Cradle_Storage), D2-2(PESD5V0S1BA,115@Cradle_Power_Charging), D3-2(JLC_SD103AX@Cradle_Power_PMIC), MIC1-2(MMICT390200012@Cradle_Audio), MIC1-3(MMICT390200012@Cradle_Audio), MIC2-3(MMICT390200012@Cradle_Audio), P1-2(S2B-PH-K-S(LF)(SN)@ambiguous(Cradle_Power_Charging, Cradle_Interfaces)), Q1-1(DMP2035U-7@Cradle_Power_Charging), Q2-3(JLC_LBSS138LT1G@ambiguous(Cradle_Storage, Cradle_Interfaces)), Q6-3(JLC_LBSS138LT1G@ambiguous(Cradle_Storage, Cradle_Interfaces)), R7-2(103AT-2@Cradle_Power_Charging), R8-2(RT0402FRE0730K1L@Cradle_Power_Charging), R11-2(AC0402JR-13100KL@Cradle_Power_PMIC), R18-2(AC0402JR-13100KL@Cradle_Power_PMIC), R20-2(CRG0402F200K@Cradle_Power_PMIC), R24-2(AC0402JR-13100KL@Cradle_Power_PMIC), SW1-3(JLC_KMR221GLFS@Cradle_Power_Charging), SW1-4(JLC_KMR221GLFS@Cradle_Power_Charging), U2-1(AP6275S@Cradle_Wireless), U2-3(AP6275S@Cradle_Wireless), U2-4(AP6275S@Cradle_Wireless), U2-5(AP6275S@Cradle_Wireless), U2-6(AP6275S@Cradle_Wireless), U2-7(AP6275S@Cradle_Wireless), U2-8(AP6275S@Cradle_Wireless), U2-10(AP6275S@Cradle_Wireless), U2-11(AP6275S@Cradle_Wireless), U2-23(AP6275S@Cradle_Wireless), U2-27(AP6275S@Cradle_Wireless), U2-30(AP6275S@Cradle_Wireless), U2-32(AP6275S@Cradle_Wireless), U2-39(AP6275S@Cradle_Wireless), U3-A6(EMMC04G-M627-Y02U@Cradle_Storage), U3-C4(EMMC04G-M627-Y02U@Cradle_Storage), U3-E7(EMMC04G-M627-Y02U@Cradle_Storage), U3-G5(EMMC04G-M627-Y02U@Cradle_Storage), U3-H10(EMMC04G-M627-Y02U@Cradle_Storage), U3-J5(EMMC04G-M627-Y02U@Cradle_Storage), U3-K8(EMMC04G-M627-Y02U@Cradle_Storage), U3-N2(EMMC04G-M627-Y02U@Cradle_Storage), U3-N5(EMMC04G-M627-Y02U@Cradle_Storage), U3-P4(EMMC04G-M627-Y02U@Cradle_Storage), U3-P6(EMMC04G-M627-Y02U@Cradle_Storage), U5-A3(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-A10(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-C1(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-C5(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-C8(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-C12(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-D2(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-D4(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-D9(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-D11(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-E1(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-E5(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-E8(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-E12(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-G1(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-G3(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-G5(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-G8(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-G10(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-G12(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-J1(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-J3(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-J10(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-J12(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-K2(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-K4(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-K9(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U5-K11(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory), U6-69(RK806S-5@Cradle_Power_PMIC), U8-1(HDMI-519S@Cradle_Interfaces), U8-4(HDMI-519S@Cradle_Interfaces), U8-7(HDMI-519S@Cradle_Interfaces), U8-10(HDMI-519S@Cradle_Interfaces), U8-13(HDMI-519S@Cradle_Interfaces), U8-20(HDMI-519S@Cradle_Interfaces), U8-21(HDMI-519S@Cradle_Interfaces), U8-22(HDMI-519S@Cradle_Interfaces), U8-23(HDMI-519S@Cradle_Interfaces), U9-C2(MAX98357AEWL+T@Cradle_Audio), U10-17(BQ25601RTWR@Cradle_Power_Charging), U10-18(BQ25601RTWR@Cradle_Power_Charging), U10-25(BQ25601RTWR@Cradle_Power_Charging), U14-1(JLC_32.768KHz_SIT1552AI-JF-DCC-32.768D@Cradle_Wireless), U14-4(JLC_32.768KHz_SIT1552AI-JF-DCC-32.768D@Cradle_Wireless), X1-2(JLC_37.4_MHz_7M37470001@Cradle_Wireless), X1-4(JLC_37.4_MHz_7M37470001@Cradle_Wireless) | - |
+| HDMI_CEC | Q3-2(JLC_LBSS138LT1G@ambiguous(Cradle_Storage, Cradle_Interfaces)), R64-1(TFCR0603-10W-C-4701FT-1K@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Interfaces)) | - |
+| HDMI_CLK_N | D7-2(JLC_PRTR5V0U2X_C2827688@Cradle_Interfaces) | pending-port |
+| HDMI_CLK_P | D7-1(JLC_PRTR5V0U2X_C2827688@Cradle_Interfaces) | pending-port |
+| HDMI_CLK_PROC_8_N | D7-3(JLC_PRTR5V0U2X_C2827688@Cradle_Interfaces), U8-12(HDMI-519S@Cradle_Interfaces) | - |
+| HDMI_CLK_PROC_8_P | D7-4(JLC_PRTR5V0U2X_C2827688@Cradle_Interfaces), U8-11(HDMI-519S@Cradle_Interfaces) | - |
+| HDMI_D0_N | D6-2(JLC_PRTR5V0U2X_C2827688@Cradle_Interfaces) | pending-port |
+| HDMI_D0_P | D6-1(JLC_PRTR5V0U2X_C2827688@Cradle_Interfaces) | pending-port |
+| HDMI_D0_PROC_8_N | D6-3(JLC_PRTR5V0U2X_C2827688@Cradle_Interfaces), U8-9(HDMI-519S@Cradle_Interfaces) | - |
+| HDMI_D0_PROC_8_P | D6-4(JLC_PRTR5V0U2X_C2827688@Cradle_Interfaces), U8-8(HDMI-519S@Cradle_Interfaces) | - |
+| HDMI_D1_N | D4-2(JLC_PRTR5V0U2X_C2827688@Cradle_Interfaces) | pending-port |
+| HDMI_D1_P | D4-1(JLC_PRTR5V0U2X_C2827688@Cradle_Interfaces) | pending-port |
+| HDMI_D1_PROC_8_N | D4-3(JLC_PRTR5V0U2X_C2827688@Cradle_Interfaces), U8-6(HDMI-519S@Cradle_Interfaces) | - |
+| HDMI_D1_PROC_8_P | D4-4(JLC_PRTR5V0U2X_C2827688@Cradle_Interfaces), U8-5(HDMI-519S@Cradle_Interfaces) | - |
+| HDMI_D2_N | D5-2(JLC_PRTR5V0U2X_C2827688@Cradle_Interfaces) | pending-port |
+| HDMI_D2_P | D5-1(JLC_PRTR5V0U2X_C2827688@Cradle_Interfaces) | pending-port |
+| HDMI_D2_PROC_8_N | D5-3(JLC_PRTR5V0U2X_C2827688@Cradle_Interfaces), U8-3(HDMI-519S@Cradle_Interfaces) | - |
+| HDMI_D2_PROC_8_P | D5-4(JLC_PRTR5V0U2X_C2827688@Cradle_Interfaces), U8-2(HDMI-519S@Cradle_Interfaces) | - |
+| HDMI_HPD | Q6-2(JLC_LBSS138LT1G@ambiguous(Cradle_Storage, Cradle_Interfaces)), R69-1(TFCR0603-10W-C-4701FT-1K@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Interfaces)) | - |
+| HDMI_SCL | Q4-2(JLC_LBSS138LT1G@ambiguous(Cradle_Storage, Cradle_Interfaces)), R65-1(TFCR0603-10W-C-4701FT-1K@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Interfaces)) | - |
+| HDMI_SDA | Q5-2(JLC_LBSS138LT1G@ambiguous(Cradle_Storage, Cradle_Interfaces)), R68-1(TFCR0603-10W-C-4701FT-1K@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Interfaces)) | - |
 | I2C1_SCL_M0_RK806 | U6-17(RK806S-5@Cradle_Power_PMIC) | pending-port |
 | I2C1_SDA_M0_RK806 | U6-15(RK806S-5@Cradle_Power_PMIC) | pending-port |
+| INTERFACES_3V3 | Q3-1(JLC_LBSS138LT1G@ambiguous(Cradle_Storage, Cradle_Interfaces)), Q4-1(JLC_LBSS138LT1G@ambiguous(Cradle_Storage, Cradle_Interfaces)), Q5-1(JLC_LBSS138LT1G@ambiguous(Cradle_Storage, Cradle_Interfaces)), R64-2(TFCR0603-10W-C-4701FT-1K@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Interfaces)), R65-2(TFCR0603-10W-C-4701FT-1K@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Interfaces)), R68-2(TFCR0603-10W-C-4701FT-1K@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Interfaces)), R69-2(TFCR0603-10W-C-4701FT-1K@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Interfaces)) | - |
+| INTERFACES_5V | R63-2(TFCR0603-10W-C-4701FT-1K@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Interfaces)), R66-2(TFCR0603-10W-C-4701FT-1K@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Interfaces)), R67-2(TFCR0603-10W-C-4701FT-1K@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Interfaces)), U8-18(HDMI-519S@Cradle_Interfaces) | - |
 | MIC_CLK | MIC1-4(MMICT390200012@Cradle_Audio), MIC2-4(MMICT390200012@Cradle_Audio) | - |
 | MIC_DATA | MIC1-1(MMICT390200012@Cradle_Audio), MIC2-1(MMICT390200012@Cradle_Audio) | - |
-| NLDO1_3 | C42-1(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), U6-14(RK806S-5@Cradle_Power_PMIC) | - |
-| NLDO2_3 | C43-1(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), U6-12(RK806S-5@Cradle_Power_PMIC) | - |
-| NLDO3_3 | C44-1(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), U6-11(RK806S-5@Cradle_Power_PMIC) | - |
-| NLDO4_3 | C45-1(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), U6-10(RK806S-5@Cradle_Power_PMIC) | - |
-| NLDO5_3 | C46-1(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), U6-8(RK806S-5@Cradle_Power_PMIC) | - |
+| NLDO1_3 | C42-1(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), U6-14(RK806S-5@Cradle_Power_PMIC) | - |
+| NLDO2_3 | C43-1(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), U6-12(RK806S-5@Cradle_Power_PMIC) | - |
+| NLDO3_3 | C44-1(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), U6-11(RK806S-5@Cradle_Power_PMIC) | - |
+| NLDO4_3 | C45-1(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), U6-10(RK806S-5@Cradle_Power_PMIC) | - |
+| NLDO5_3 | C46-1(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), U6-8(RK806S-5@Cradle_Power_PMIC) | - |
 | NetANT1_1 | ANT1-1(2450AT18A100E@Cradle_Wireless), C84-1(JLC_10pF_0402CG100J500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless)) | - |
 | NetANT1_2 | ANT1-2(2450AT18A100E@Cradle_Wireless) | orphaned |
 | NetANT2_1 | ANT2-1(2450AT18A100E@Cradle_Wireless), C85-1(JLC_10pF_0402CG100J500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless)) | - |
@@ -548,8 +510,8 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetC11_2 | C11-2(JLC_10pF_0402CG100J500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless)) | orphaned |
 | NetC12_1 | C12-1(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)) | orphaned |
 | NetC12_2 | C12-2(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)) | orphaned |
-| NetC13_1 | C13-1(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)) | orphaned |
-| NetC13_2 | C13-2(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)) | orphaned |
+| NetC13_1 | C13-1(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)) | orphaned |
+| NetC13_2 | C13-2(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)) | orphaned |
 | NetC23_1 | C23-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), R13-2(RMCF0402JT100R@Cradle_Power_PMIC), U6-4(RK806S-5@Cradle_Power_PMIC) | - |
 | NetC3_1 | C3-1(885012106031@Cradle_Power_Charging), U10-23(BQ25601RTWR@Cradle_Power_Charging) | - |
 | NetC5_1 | C5-1(CC0402KRX5R9BB473@Cradle_Power_Charging), L1-1(JLC_SWPA4030S1R0NT@Cradle_Power_Charging), U10-19(BQ25601RTWR@Cradle_Power_Charging), U10-20(BQ25601RTWR@Cradle_Power_Charging) | - |
@@ -564,12 +526,13 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetC83_2 | C83-2(JLC_22uF_0603_C1608X5R1A226MT000E@ambiguous(Cradle_Power_PMIC, Cradle (top-level/block-diagram sheet))) | orphaned |
 | NetC84_2 | C84-2(JLC_10pF_0402CG100J500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless)), R30-1(JLC_0_OHM_0402_RC0402JR-070RL@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless)) | - |
 | NetC85_2 | C85-2(JLC_10pF_0402CG100J500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless)), R31-1(JLC_0_OHM_0402_RC0402JR-070RL@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless)) | - |
-| NetC88_1 | C88-1(CL10A475KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless)) | orphaned |
-| NetC88_2 | C88-2(CL10A475KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless)) | orphaned |
-| NetC89_1 | C89-1(CL10A475KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless)), L10-2(SLS3D16S2R2NTT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless)), U2-29(AP6275S@Cradle_Wireless) | - |
-| NetC8_1 | C8-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)) | orphaned |
-| NetC8_2 | C8-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)) | orphaned |
-| NetC90_1 | C90-1(CL10A475KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless)), L11-1(SLS3D16S2R2NTT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless)), U2-25(AP6275S@Cradle_Wireless) | - |
+| NetC88_1 | C88-1(CL10A475KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)) | orphaned |
+| NetC88_2 | C88-2(CL10A475KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)) | orphaned |
+| NetC89_1 | C89-1(CL10A475KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), L10-2(SLS3D16S2R2NTT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless)), U2-29(AP6275S@Cradle_Wireless) | - |
+| NetC8_1 | C8-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)) | orphaned |
+| NetC8_2 | C8-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)) | orphaned |
+| NetC90_1 | C90-1(CL10A475KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), L11-1(SLS3D16S2R2NTT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless)), U2-25(AP6275S@Cradle_Wireless) | - |
+| NetC99_1 | C99-1(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), U3-C2(EMMC04G-M627-Y02U@Cradle_Storage) | - |
 | NetC9_1 | C9-1(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)) | orphaned |
 | NetC9_2 | C9-2(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)) | orphaned |
 | NetD1_1 | D1-1(JLC_PRTR5V0U2X_C2827688@Cradle_Interfaces) | orphaned |
@@ -649,6 +612,11 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetP1_1 | P1-1(S2B-PH-K-S(LF)(SN)@ambiguous(Cradle_Power_Charging, Cradle_Interfaces)), Q1-2(DMP2035U-7@Cradle_Power_Charging) | - |
 | NetP2_1 | P2-1(S2B-PH-K-S(LF)(SN)@ambiguous(Cradle_Power_Charging, Cradle_Interfaces)) | orphaned |
 | NetP2_2 | P2-2(S2B-PH-K-S(LF)(SN)@ambiguous(Cradle_Power_Charging, Cradle_Interfaces)) | orphaned |
+| NetQ2_2 | Q2-2(JLC_LBSS138LT1G@ambiguous(Cradle_Storage, Cradle_Interfaces)), R61-1(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)) | - |
+| NetQ3_3 | Q3-3(JLC_LBSS138LT1G@ambiguous(Cradle_Storage, Cradle_Interfaces)), R63-1(TFCR0603-10W-C-4701FT-1K@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Interfaces)), U8-14(HDMI-519S@Cradle_Interfaces) | - |
+| NetQ4_3 | Q4-3(JLC_LBSS138LT1G@ambiguous(Cradle_Storage, Cradle_Interfaces)), R66-1(TFCR0603-10W-C-4701FT-1K@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Interfaces)), U8-15(HDMI-519S@Cradle_Interfaces) | - |
+| NetQ5_3 | Q5-3(JLC_LBSS138LT1G@ambiguous(Cradle_Storage, Cradle_Interfaces)), R67-1(TFCR0603-10W-C-4701FT-1K@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Interfaces)), U8-16(HDMI-519S@Cradle_Interfaces) | - |
+| NetQ6_1 | Q6-1(JLC_LBSS138LT1G@ambiguous(Cradle_Storage, Cradle_Interfaces)), U8-19(HDMI-519S@Cradle_Interfaces) | - |
 | NetR12_2 | R12-2(RC0402JR-100RL@Cradle_Power_PMIC), U6-18(RK806S-5@Cradle_Power_PMIC) | - |
 | NetR25_1 | R25-1(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)) | orphaned |
 | NetR25_2 | R25-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)) | orphaned |
@@ -670,6 +638,8 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetR38_2 | R38-2(JLC_0_OHM_0402_RC0402JR-070RL@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless)), U2-22(AP6275S@Cradle_Wireless) | - |
 | NetR4_2 | R4-2(TNPW040210K0DEED@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Wireless)), U10-3(BQ25601RTWR@Cradle_Power_Charging) | - |
 | NetR5_2 | R5-2(TNPW040210K0DEED@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Wireless)), U10-4(BQ25601RTWR@Cradle_Power_Charging) | - |
+| NetR62_1 | R62-1(TFCR0603-10W-C-4701FT-1K@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Interfaces)) | orphaned |
+| NetR62_2 | R62-2(TFCR0603-10W-C-4701FT-1K@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Interfaces)) | orphaned |
 | NetR6_2 | R6-2(RMCF0402FT5K23@Cradle_Power_Charging), R7-1(103AT-2@Cradle_Power_Charging), R8-1(RT0402FRE0730K1L@Cradle_Power_Charging), U10-11(BQ25601RTWR@Cradle_Power_Charging) | - |
 | NetSW1_1 | SW1-1(JLC_KMR221GLFS@Cradle_Power_Charging), SW1-2(JLC_KMR221GLFS@Cradle_Power_Charging), U10-12(BQ25601RTWR@Cradle_Power_Charging) | - |
 | NetSW1_5 | SW1-5(JLC_KMR221GLFS@Cradle_Power_Charging) | orphaned |
@@ -767,10 +737,6 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU3_A13 | U3-A13(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_A14 | U3-A14(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_A2 | U3-A2(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_A3 | U3-A3(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_A4 | U3-A4(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_A5 | U3-A5(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_A6 | U3-A6(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_A7 | U3-A7(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_A8 | U3-A8(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_A9 | U3-A9(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
@@ -780,11 +746,6 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU3_B12 | U3-B12(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_B13 | U3-B13(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_B14 | U3-B14(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_B2 | U3-B2(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_B3 | U3-B3(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_B4 | U3-B4(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_B5 | U3-B5(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_B6 | U3-B6(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_B7 | U3-B7(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_B8 | U3-B8(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_B9 | U3-B9(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
@@ -794,11 +755,8 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU3_C12 | U3-C12(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_C13 | U3-C13(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_C14 | U3-C14(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_C2 | U3-C2(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_C3 | U3-C3(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_C4 | U3-C4(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_C5 | U3-C5(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_C6 | U3-C6(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_C7 | U3-C7(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_C8 | U3-C8(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_C9 | U3-C9(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
@@ -817,8 +775,6 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU3_E2 | U3-E2(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_E3 | U3-E3(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_E5 | U3-E5(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_E6 | U3-E6(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_E7 | U3-E7(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_E8 | U3-E8(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_E9 | U3-E9(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_F1 | U3-F1(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
@@ -828,7 +784,6 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU3_F14 | U3-F14(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_F2 | U3-F2(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_F3 | U3-F3(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_F5 | U3-F5(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_G1 | U3-G1(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_G10 | U3-G10(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_G12 | U3-G12(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
@@ -836,23 +791,18 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU3_G14 | U3-G14(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_G2 | U3-G2(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_G3 | U3-G3(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_G5 | U3-G5(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_H1 | U3-H1(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_H10 | U3-H10(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_H12 | U3-H12(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_H13 | U3-H13(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_H14 | U3-H14(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_H2 | U3-H2(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_H3 | U3-H3(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_H5 | U3-H5(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_J1 | U3-J1(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_J10 | U3-J10(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_J12 | U3-J12(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_J13 | U3-J13(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_J14 | U3-J14(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_J2 | U3-J2(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_J3 | U3-J3(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_J5 | U3-J5(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_K1 | U3-K1(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_K10 | U3-K10(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_K12 | U3-K12(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
@@ -860,11 +810,8 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU3_K14 | U3-K14(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_K2 | U3-K2(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_K3 | U3-K3(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_K5 | U3-K5(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_K6 | U3-K6(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_K7 | U3-K7(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_K8 | U3-K8(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_K9 | U3-K9(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_L1 | U3-L1(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_L12 | U3-L12(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_L13 | U3-L13(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
@@ -879,9 +826,6 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU3_M14 | U3-M14(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_M2 | U3-M2(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_M3 | U3-M3(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_M4 | U3-M4(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_M5 | U3-M5(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_M6 | U3-M6(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_M7 | U3-M7(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_M8 | U3-M8(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_M9 | U3-M9(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
@@ -891,10 +835,7 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU3_N12 | U3-N12(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_N13 | U3-N13(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_N14 | U3-N14(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_N2 | U3-N2(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_N3 | U3-N3(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_N4 | U3-N4(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_N5 | U3-N5(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_N6 | U3-N6(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_N7 | U3-N7(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_N8 | U3-N8(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
@@ -906,10 +847,6 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU3_P13 | U3-P13(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_P14 | U3-P14(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_P2 | U3-P2(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_P3 | U3-P3(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_P4 | U3-P4(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_P5 | U3-P5(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
-| NetU3_P6 | U3-P6(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_P7 | U3-P7(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_P8 | U3-P8(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
 | NetU3_P9 | U3-P9(EMMC04G-M627-Y02U@Cradle_Storage) | pending-port |
@@ -919,11 +856,9 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU4_4 | U4-4(AP2141WG-7@Cradle_Interfaces) | orphaned |
 | NetU4_5 | U4-5(AP2141WG-7@Cradle_Interfaces) | orphaned |
 | NetU5_A1 | U5-A1(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_A10 | U5-A10(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_A11 | U5-A11(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_A12 | U5-A12(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_A2 | U5-A2(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_A3 | U5-A3(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_A4 | U5-A4(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_A5 | U5-A5(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_A8 | U5-A8(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
@@ -938,35 +873,23 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU5_B5 | U5-B5(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_B8 | U5-B8(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_B9 | U5-B9(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_C1 | U5-C1(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_C10 | U5-C10(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_C11 | U5-C11(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_C12 | U5-C12(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_C2 | U5-C2(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_C3 | U5-C3(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_C4 | U5-C4(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_C5 | U5-C5(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_C8 | U5-C8(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_C9 | U5-C9(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_D1 | U5-D1(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_D10 | U5-D10(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_D11 | U5-D11(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_D12 | U5-D12(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_D2 | U5-D2(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_D3 | U5-D3(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_D4 | U5-D4(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_D5 | U5-D5(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_D8 | U5-D8(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_D9 | U5-D9(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_E1 | U5-E1(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_E10 | U5-E10(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_E11 | U5-E11(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_E12 | U5-E12(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_E2 | U5-E2(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_E3 | U5-E3(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_E4 | U5-E4(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_E5 | U5-E5(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_E8 | U5-E8(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_E9 | U5-E9(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_F1 | U5-F1(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_F10 | U5-F10(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
@@ -978,15 +901,9 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU5_F5 | U5-F5(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_F8 | U5-F8(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_F9 | U5-F9(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_G1 | U5-G1(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_G10 | U5-G10(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_G11 | U5-G11(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_G12 | U5-G12(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_G2 | U5-G2(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_G3 | U5-G3(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_G4 | U5-G4(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_G5 | U5-G5(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_G8 | U5-G8(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_G9 | U5-G9(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_H1 | U5-H1(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_H10 | U5-H10(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
@@ -998,54 +915,24 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetU5_H5 | U5-H5(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_H8 | U5-H8(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_H9 | U5-H9(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_J1 | U5-J1(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_J10 | U5-J10(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_J11 | U5-J11(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_J12 | U5-J12(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_J2 | U5-J2(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_J3 | U5-J3(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_J4 | U5-J4(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_J5 | U5-J5(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_J8 | U5-J8(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_J9 | U5-J9(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_K1 | U5-K1(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_K10 | U5-K10(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_K11 | U5-K11(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_K12 | U5-K12(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_K2 | U5-K2(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_K3 | U5-K3(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_K4 | U5-K4(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_K5 | U5-K5(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU5_K8 | U5-K8(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
-| NetU5_K9 | U5-K9(JLC_K4UBE3D4AB-MGCL@Cradle_Compute_Memory) | pending-port |
 | NetU6_2 | U6-2(RK806S-5@Cradle_Power_PMIC) | orphaned |
 | NetU6_21 | U6-21(RK806S-5@Cradle_Power_PMIC) | orphaned |
 | NetU6_3 | U6-3(RK806S-5@Cradle_Power_PMIC) | orphaned |
 | NetU6_38 | U6-38(RK806S-5@Cradle_Power_PMIC) | orphaned |
 | NetU6_48 | U6-48(RK806S-5@Cradle_Power_PMIC) | orphaned |
-| NetU8_1 | U8-1(HDMI-519S@Cradle_Interfaces) | orphaned |
-| NetU8_10 | U8-10(HDMI-519S@Cradle_Interfaces) | orphaned |
-| NetU8_11 | U8-11(HDMI-519S@Cradle_Interfaces) | orphaned |
-| NetU8_12 | U8-12(HDMI-519S@Cradle_Interfaces) | orphaned |
-| NetU8_13 | U8-13(HDMI-519S@Cradle_Interfaces) | orphaned |
-| NetU8_14 | U8-14(HDMI-519S@Cradle_Interfaces) | orphaned |
-| NetU8_15 | U8-15(HDMI-519S@Cradle_Interfaces) | orphaned |
-| NetU8_16 | U8-16(HDMI-519S@Cradle_Interfaces) | orphaned |
 | NetU8_17 | U8-17(HDMI-519S@Cradle_Interfaces) | orphaned |
-| NetU8_18 | U8-18(HDMI-519S@Cradle_Interfaces) | orphaned |
-| NetU8_19 | U8-19(HDMI-519S@Cradle_Interfaces) | orphaned |
-| NetU8_2 | U8-2(HDMI-519S@Cradle_Interfaces) | orphaned |
-| NetU8_20 | U8-20(HDMI-519S@Cradle_Interfaces) | orphaned |
-| NetU8_21 | U8-21(HDMI-519S@Cradle_Interfaces) | orphaned |
-| NetU8_22 | U8-22(HDMI-519S@Cradle_Interfaces) | orphaned |
-| NetU8_23 | U8-23(HDMI-519S@Cradle_Interfaces) | orphaned |
-| NetU8_3 | U8-3(HDMI-519S@Cradle_Interfaces) | orphaned |
-| NetU8_4 | U8-4(HDMI-519S@Cradle_Interfaces) | orphaned |
-| NetU8_5 | U8-5(HDMI-519S@Cradle_Interfaces) | orphaned |
-| NetU8_6 | U8-6(HDMI-519S@Cradle_Interfaces) | orphaned |
-| NetU8_7 | U8-7(HDMI-519S@Cradle_Interfaces) | orphaned |
-| NetU8_8 | U8-8(HDMI-519S@Cradle_Interfaces) | orphaned |
-| NetU8_9 | U8-9(HDMI-519S@Cradle_Interfaces) | orphaned |
 | NetU9_B2 | U9-B2(MAX98357AEWL+T@Cradle_Audio) | pending-port |
 | NetUSB1_0 | USB1-0(JLC_TYPE-C 16P QTWT@Cradle_Interfaces) | orphaned |
 | NetUSB1_A1 | USB1-A1(JLC_TYPE-C 16P QTWT@Cradle_Interfaces) | pending-port |
@@ -1073,11 +960,11 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | NetUSB2_B6 | USB2-B6(JLC_TYPE-C 16P QTWT@Cradle_Interfaces) | pending-port |
 | NetUSB2_B7 | USB2-B7(JLC_TYPE-C 16P QTWT@Cradle_Interfaces) | pending-port |
 | NetUSB2_B8 | USB2-B8(JLC_TYPE-C 16P QTWT@Cradle_Interfaces) | pending-port |
-| PLDO1_3 | C59-1(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), U6-60(RK806S-5@Cradle_Power_PMIC) | - |
-| PLDO2_3 | C60-1(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), U6-58(RK806S-5@Cradle_Power_PMIC) | - |
-| PLDO3_3 | C61-1(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), U6-57(RK806S-5@Cradle_Power_PMIC) | - |
-| PLDO4_3 | C62-1(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), U6-63(RK806S-5@Cradle_Power_PMIC) | - |
-| PLDO5_3 | C63-1(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), U6-65(RK806S-5@Cradle_Power_PMIC) | - |
+| PLDO1_3 | C59-1(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), U6-60(RK806S-5@Cradle_Power_PMIC) | - |
+| PLDO2_3 | C60-1(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), U6-58(RK806S-5@Cradle_Power_PMIC) | - |
+| PLDO3_3 | C61-1(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), U6-57(RK806S-5@Cradle_Power_PMIC) | - |
+| PLDO4_3 | C62-1(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), U6-63(RK806S-5@Cradle_Power_PMIC) | - |
+| PLDO5_3 | C63-1(JLC_1210B225K500NT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), U6-65(RK806S-5@Cradle_Power_PMIC) | - |
 | PMIC_EXT_EN_OUT | U6-39(RK806S-5@Cradle_Power_PMIC) | pending-port |
 | PMIC_FB5_3 | R22-2(RC0402FR-07499KL@Cradle_Power_PMIC), R24-1(AC0402JR-13100KL@Cradle_Power_PMIC), U6-47(RK806S-5@Cradle_Power_PMIC) | - |
 | PMIC_FB6_3 | C14-2(CAP 100pF 50V 0402(1005)@Cradle_Power_PMIC), R9-2(RN73R1ETTP2001F25@Cradle_Power_PMIC), R11-1(AC0402JR-13100KL@Cradle_Power_PMIC), U6-31(RK806S-5@Cradle_Power_PMIC) | - |
@@ -1099,33 +986,34 @@ Single-pin nets: 529 total -- 383 deliberately named (`pending-port`: a real hie
 | PWRON_L | R13-1(RMCF0402JT100R@Cradle_Power_PMIC) | pending-port |
 | REGN_2 | C4-1(CC0402MRX5R7BB475@Cradle_Power_Charging), R6-1(RMCF0402FT5K23@Cradle_Power_Charging), U10-22(BQ25601RTWR@Cradle_Power_Charging) | - |
 | RESET_L | U6-40(RK806S-5@Cradle_Power_PMIC) | pending-port |
+| SD_CD | Card1-9(TF-01A@Cradle_Storage), R50-1(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)) | - |
+| SD_CDD3 | Card1-2(TF-01A@Cradle_Storage), R49-1(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)) | - |
+| SD_CLK | Card1-5(TF-01A@Cradle_Storage) | pending-port |
+| SD_CMD | Card1-3(TF-01A@Cradle_Storage), R45-1(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)) | - |
+| SD_D0 | Card1-7(TF-01A@Cradle_Storage), R46-1(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)) | - |
+| SD_D1 | Card1-8(TF-01A@Cradle_Storage), R47-1(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)) | - |
+| SD_D2 | Card1-1(TF-01A@Cradle_Storage), R48-1(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)) | - |
 | SPK_BCLK | U9-C1(MAX98357AEWL+T@Cradle_Audio) | pending-port |
 | SPK_DIN | U9-B1(MAX98357AEWL+T@Cradle_Audio) | pending-port |
 | SPK_LRCLK | U9-C3(MAX98357AEWL+T@Cradle_Audio) | pending-port |
 | SPK_OUTN | U9-B3(MAX98357AEWL+T@Cradle_Audio) | pending-port |
 | SPK_OUTP | U9-A3(MAX98357AEWL+T@Cradle_Audio) | pending-port |
 | SPK_SD_MODE | U9-A1(MAX98357AEWL+T@Cradle_Audio) | pending-port |
-| STORAGE_3V3 | C91-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C92-1(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), Card1-4(TF-01A@Cradle_Storage), R45-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), R46-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), R47-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), R48-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), R49-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), R50-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)) | - |
-| STORAGE_CDD3_7 | Card1-2(TF-01A@Cradle_Storage), R49-1(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)) | - |
-| STORAGE_CD_7 | Card1-9(TF-01A@Cradle_Storage), R50-1(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)) | - |
-| STORAGE_CLK_7 | Card1-5(TF-01A@Cradle_Storage) | pending-port |
-| STORAGE_CMD_7 | Card1-3(TF-01A@Cradle_Storage), R45-1(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)) | - |
-| STORAGE_D0_7 | Card1-7(TF-01A@Cradle_Storage), R46-1(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)) | - |
-| STORAGE_D1_7 | Card1-8(TF-01A@Cradle_Storage), R47-1(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)) | - |
-| STORAGE_D2_7 | Card1-1(TF-01A@Cradle_Storage), R48-1(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)) | - |
+| STORAGE_1V8 | C93-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C94-1(CL10A475KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), C95-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C96-1(CL10A475KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), C97-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C98-1(CL10A475KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), C100-1(CL10A475KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), C101-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C102-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C103-1(CL10A475KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), R51-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), R52-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), R53-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), R54-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), R55-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), R56-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), R57-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), R58-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), R59-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), R60-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), U3-C6(EMMC04G-M627-Y02U@Cradle_Storage), U3-M4(EMMC04G-M627-Y02U@Cradle_Storage), U3-N4(EMMC04G-M627-Y02U@Cradle_Storage), U3-P3(EMMC04G-M627-Y02U@Cradle_Storage), U3-P5(EMMC04G-M627-Y02U@Cradle_Storage) | - |
+| STORAGE_3V3 | C91-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C92-1(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C104-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C105-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C106-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C107-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C108-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C109-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C110-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C111-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), Card1-4(TF-01A@Cradle_Storage), R45-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), R46-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), R47-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), R48-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), R49-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), R50-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), U3-E6(EMMC04G-M627-Y02U@Cradle_Storage), U3-F5(EMMC04G-M627-Y02U@Cradle_Storage), U3-J10(EMMC04G-M627-Y02U@Cradle_Storage), U3-K9(EMMC04G-M627-Y02U@Cradle_Storage) | - |
 | SYS | C6-1(885012106031@Cradle_Power_Charging), L1-2(JLC_SWPA4030S1R0NT@Cradle_Power_Charging), LED1-2(JLC_XL-0603QYGC@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet))), LED2-1(JLC_KT-0603R@Cradle_Power_Charging), U10-15(BQ25601RTWR@Cradle_Power_Charging), U10-16(BQ25601RTWR@Cradle_Power_Charging) | - |
-| VCCA1V8_PLDO6 | C64-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), U6-20(RK806S-5@Cradle_Power_PMIC) | - |
-| VCC_1V1_NLDO | C17-1(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C21-2(JLC_22uF_0603_C1608X5R1A226MT000E@ambiguous(Cradle_Power_PMIC, Cradle (top-level/block-diagram sheet))), C28-2(JLC_22uF_0603_C1608X5R1A226MT000E@ambiguous(Cradle_Power_PMIC, Cradle (top-level/block-diagram sheet))), C33-2(JLC_22uF_0603_C1608X5R1A226MT000E@ambiguous(Cradle_Power_PMIC, Cradle (top-level/block-diagram sheet))), C34-1(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C40-2(JLC_22uF_0603_C1608X5R1A226MT000E@ambiguous(Cradle_Power_PMIC, Cradle (top-level/block-diagram sheet))), C47-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C48-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C49-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C50-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C54-1(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C58-2(JLC_22uF_0603_C1608X5R1A226MT000E@ambiguous(Cradle_Power_PMIC, Cradle (top-level/block-diagram sheet))), C65-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C66-1(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C71-1(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C75-1(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), R12-1(RC0402JR-100RL@Cradle_Power_PMIC), U6-1(RK806S-5@Cradle_Power_PMIC), U6-7(RK806S-5@Cradle_Power_PMIC), U6-9(RK806S-5@Cradle_Power_PMIC), U6-13(RK806S-5@Cradle_Power_PMIC), U6-22(RK806S-5@Cradle_Power_PMIC), U6-27(RK806S-5@Cradle_Power_PMIC), U6-28(RK806S-5@Cradle_Power_PMIC), U6-33(RK806S-5@Cradle_Power_PMIC), U6-34(RK806S-5@Cradle_Power_PMIC), U6-43(RK806S-5@Cradle_Power_PMIC), U6-44(RK806S-5@Cradle_Power_PMIC), U6-52(RK806S-5@Cradle_Power_PMIC), U6-53(RK806S-5@Cradle_Power_PMIC), U6-54(RK806S-5@Cradle_Power_PMIC), U6-59(RK806S-5@Cradle_Power_PMIC), U6-64(RK806S-5@Cradle_Power_PMIC) | - |
+| VCCA1V8_PLDO6 | C64-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), U6-20(RK806S-5@Cradle_Power_PMIC) | - |
+| VCC_1V1_NLDO | C17-1(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C21-2(JLC_22uF_0603_C1608X5R1A226MT000E@ambiguous(Cradle_Power_PMIC, Cradle (top-level/block-diagram sheet))), C28-2(JLC_22uF_0603_C1608X5R1A226MT000E@ambiguous(Cradle_Power_PMIC, Cradle (top-level/block-diagram sheet))), C33-2(JLC_22uF_0603_C1608X5R1A226MT000E@ambiguous(Cradle_Power_PMIC, Cradle (top-level/block-diagram sheet))), C34-1(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C40-2(JLC_22uF_0603_C1608X5R1A226MT000E@ambiguous(Cradle_Power_PMIC, Cradle (top-level/block-diagram sheet))), C47-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C48-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C49-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C50-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C54-1(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C58-2(JLC_22uF_0603_C1608X5R1A226MT000E@ambiguous(Cradle_Power_PMIC, Cradle (top-level/block-diagram sheet))), C65-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C66-1(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C71-1(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), C75-1(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), R12-1(RC0402JR-100RL@Cradle_Power_PMIC), U6-1(RK806S-5@Cradle_Power_PMIC), U6-7(RK806S-5@Cradle_Power_PMIC), U6-9(RK806S-5@Cradle_Power_PMIC), U6-13(RK806S-5@Cradle_Power_PMIC), U6-22(RK806S-5@Cradle_Power_PMIC), U6-27(RK806S-5@Cradle_Power_PMIC), U6-28(RK806S-5@Cradle_Power_PMIC), U6-33(RK806S-5@Cradle_Power_PMIC), U6-34(RK806S-5@Cradle_Power_PMIC), U6-43(RK806S-5@Cradle_Power_PMIC), U6-44(RK806S-5@Cradle_Power_PMIC), U6-52(RK806S-5@Cradle_Power_PMIC), U6-53(RK806S-5@Cradle_Power_PMIC), U6-54(RK806S-5@Cradle_Power_PMIC), U6-59(RK806S-5@Cradle_Power_PMIC), U6-64(RK806S-5@Cradle_Power_PMIC) | - |
 | VCC_3V3 | C55-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C56-1(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C57-1(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), U6-24(RK806S-5@Cradle_Power_PMIC), U13-2(JLC_FTC252012SR24MBCA@Cradle_Power_PMIC) | - |
 | VDD2_DDR | C51-1(CAP 100pF 50V 0402(1005)@Cradle_Power_PMIC), C52-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C53-1(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), L6-2(JLC_WPN252012ER47MT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), R17-1(RK73H1ETTP1103F@Cradle_Power_PMIC), U6-67(RK806S-5@Cradle_Power_PMIC) | - |
 | VDDQ_DDR | C14-1(CAP 100pF 50V 0402(1005)@Cradle_Power_PMIC), C15-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C16-1(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), L3-2(JLC_WPN252012ER47MT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), R9-1(RN73R1ETTP2001F25@Cradle_Power_PMIC), U6-30(RK806S-5@Cradle_Power_PMIC) | - |
 | VDD_1V8 | C36-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C41-1(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), L5-2(JLC_WPN252012ER47MT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), U6-5(RK806S-5@Cradle_Power_PMIC) | - |
-| VDD_CPU_BIG | C18-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C19-1(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C20-1(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C22-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C22-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), R10-1(RMCF0402JT100R@Cradle_Power_PMIC), R10-2(RMCF0402JT100R@Cradle_Power_PMIC), U7-2(JLC_FTC252012SR24MBCA@Cradle_Power_PMIC) | - |
-| VDD_CPU_LIT | C35-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C37-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C37-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C38-1(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C39-1(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), R16-1(RMCF0402JT100R@Cradle_Power_PMIC), R16-2(RMCF0402JT100R@Cradle_Power_PMIC), U6-56(RK806S-5@Cradle_Power_PMIC), U12-2(JLC_FTC252012SR24MBCA@Cradle_Power_PMIC) | - |
-| VDD_DDR | C68-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C69-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C69-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C70-1(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), L7-2(JLC_WPN252012ER47MT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), R21-1(RMCF0402JT100R@Cradle_Power_PMIC), R21-2(RMCF0402JT100R@Cradle_Power_PMIC), U6-25(RK806S-5@Cradle_Power_PMIC) | - |
-| VDD_GPU | C72-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C73-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C73-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C74-1(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), L8-2(JLC_WPN252012ER47MT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), R22-1(RC0402FR-07499KL@Cradle_Power_PMIC), R23-1(RMCF0402JT100R@Cradle_Power_PMIC), R23-2(RMCF0402JT100R@Cradle_Power_PMIC), U6-46(RK806S-5@Cradle_Power_PMIC) | - |
-| VDD_LOGIC | C24-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C25-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C25-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C26-1(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C27-1(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), L4-2(JLC_WPN252012ER47MT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), R14-1(RMCF0402JT100R@Cradle_Power_PMIC), R14-2(RMCF0402JT100R@Cradle_Power_PMIC), U6-41(RK806S-5@Cradle_Power_PMIC) | - |
-| VDD_NPU | C29-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C30-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C30-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C31-1(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C32-1(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), R15-1(RMCF0402JT100R@Cradle_Power_PMIC), R15-2(RMCF0402JT100R@Cradle_Power_PMIC), U6-37(RK806S-5@Cradle_Power_PMIC), U11-2(JLC_FTC252012SR24MBCA@Cradle_Power_PMIC) | - |
+| VDD_CPU_BIG | C18-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C19-1(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C20-1(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C22-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C22-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), R10-1(RMCF0402JT100R@Cradle_Power_PMIC), R10-2(RMCF0402JT100R@Cradle_Power_PMIC), U7-2(JLC_FTC252012SR24MBCA@Cradle_Power_PMIC) | - |
+| VDD_CPU_LIT | C35-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C37-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C37-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C38-1(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C39-1(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), R16-1(RMCF0402JT100R@Cradle_Power_PMIC), R16-2(RMCF0402JT100R@Cradle_Power_PMIC), U6-56(RK806S-5@Cradle_Power_PMIC), U12-2(JLC_FTC252012SR24MBCA@Cradle_Power_PMIC) | - |
+| VDD_DDR | C68-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C69-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C69-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C70-1(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), L7-2(JLC_WPN252012ER47MT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), R21-1(RMCF0402JT100R@Cradle_Power_PMIC), R21-2(RMCF0402JT100R@Cradle_Power_PMIC), U6-25(RK806S-5@Cradle_Power_PMIC) | - |
+| VDD_GPU | C72-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C73-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C73-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C74-1(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), L8-2(JLC_WPN252012ER47MT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), R22-1(RC0402FR-07499KL@Cradle_Power_PMIC), R23-1(RMCF0402JT100R@Cradle_Power_PMIC), R23-2(RMCF0402JT100R@Cradle_Power_PMIC), U6-46(RK806S-5@Cradle_Power_PMIC) | - |
+| VDD_LOGIC | C24-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C25-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C25-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C26-1(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C27-1(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), L4-2(JLC_WPN252012ER47MT@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), R14-1(RMCF0402JT100R@Cradle_Power_PMIC), R14-2(RMCF0402JT100R@Cradle_Power_PMIC), U6-41(RK806S-5@Cradle_Power_PMIC) | - |
+| VDD_NPU | C29-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C30-1(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C30-2(CL05A105KP5NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Storage)), C31-1(JLC_C2012X5R1A476MTJ00E@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC)), C32-1(JLC_CL10A106KP8NNNC@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Storage)), R15-1(RMCF0402JT100R@Cradle_Power_PMIC), R15-2(RMCF0402JT100R@Cradle_Power_PMIC), U6-37(RK806S-5@Cradle_Power_PMIC), U11-2(JLC_FTC252012SR24MBCA@Cradle_Power_PMIC) | - |
 | VDU_CPU_BIG_3 | U6-49(RK806S-5@Cradle_Power_PMIC) | pending-port |
 | WIRELESS_1V8 | C86-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), C87-1(GRM155R61E104KA87D@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Power_PMIC, Cradle_Audio, Cradle_Wireless, Cradle_Storage)), R29-1(TNPW040210K0DEED@ambiguous(Cradle_Power_Charging, Cradle (top-level/block-diagram sheet), Cradle_Wireless)), R39-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), R40-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), R41-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), R42-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), R43-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), R44-2(JLC_30K_CR0402FF3002G@ambiguous(Cradle (top-level/block-diagram sheet), Cradle_Wireless, Cradle_Storage)), U2-34(AP6275S@Cradle_Wireless), U14-3(JLC_32.768KHz_SIT1552AI-JF-DCC-32.768D@Cradle_Wireless) | - |
 | WIRELESS_3V3 | U2-36(AP6275S@Cradle_Wireless) | pending-port |

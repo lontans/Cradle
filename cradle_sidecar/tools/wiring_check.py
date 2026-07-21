@@ -47,7 +47,7 @@ def get_really_wired_pins(nets, designator):
     return pins
 
 PIN_ROW_RE = re.compile(
-    r"^\|\s*([\d,\-]+)\s*\|\s*([^|]+?)\s*\|\s*([^|]+)\|\s*([^|]+)\|\s*([^|]+)\|\s*([^|]+)\|\s*$"
+    r"^\|\s*([A-Za-z0-9,\-]+)\s*\|\s*([^|]+?)\s*\|\s*([^|]+)\|\s*([^|]+)\|\s*([^|]+)\|\s*([^|]+)\|\s*$"
 )
 NOT_ROUTED_RE = re.compile(r"\bnot routed\b|\bno-connect\b|\bno connect\b", re.IGNORECASE)
 
@@ -78,16 +78,31 @@ def parse_pin_table(card_path):
 
 
 def expand_pin_field(pin_field):
-    """'1,3-8,10' -> [1,3,4,5,6,7,8,10]. Handles the comma/range shorthand
-    used for grouped GND/NC rows in component card pin tables."""
+    """'1,3-8,10' -> [1,3,4,5,6,7,8,10]. Also handles alphanumeric BGA ball
+    refs: 'A3' -> ['A3'], 'A7-A14' -> ['A7','A8',...,'A14']. Handles the
+    comma/range shorthand used for grouped GND/NC/VSS/etc rows in component
+    card pin tables, for both numeric-pin parts and ball-grid parts."""
     pins = []
     for part in pin_field.split(","):
         part = part.strip()
-        if "-" in part and part.replace("-", "").isdigit():
-            lo, hi = part.split("-")
-            pins.extend(range(int(lo), int(hi) + 1))
+        if not part:
+            continue
+        if "-" in part:
+            lo, hi = part.split("-", 1)
+            lo, hi = lo.strip(), hi.strip()
+            if lo.isdigit() and hi.isdigit():
+                pins.extend(range(int(lo), int(hi) + 1))
+                continue
+            m = re.match(r"^([A-Za-z]+)(\d+)$", lo)
+            hi_digits = re.sub(r"^[A-Za-z]+", "", hi)
+            if m and hi_digits.isdigit():
+                col, start = m.groups()
+                pins.extend(f"{col}{n}" for n in range(int(start), int(hi_digits) + 1))
+            # else: unrecognized range shape -- skip rather than guess
         elif part.isdigit():
             pins.append(int(part))
+        else:
+            pins.append(part)
     return pins
 
 
